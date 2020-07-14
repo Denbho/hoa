@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="report_saleorder_line">
+    <td name="td_name"><span t-field="line.name"/></td>
+    <td name="td_quantity" class="text-right">
+        <span t-field="line.product_uom_qty"/>
+        <span t-field="line.product_uom" groups="uom.group_uom"/>
+    </td>
+    <td name="td_priceunit" class="text-right">
+        <span t-field="line.price_unit"/>
+    </td>
+    <td t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
+        <span t-field="line.discount"/>
+    </td>
+    <td name="td_taxes" class="text-right">
+        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
+    </td>
+    <td name="td_subtotal" class="text-right o_price_total">
+        <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+        <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+    </td>
+  </template>
+
+  <template id="report_saleorder_document" name="Property Sales Report" inherit_id="sale.report_saleorder_document" >
+    <xpath expr="//t[@t-if='not line.display_type']" position="replace">
+      <t t-if="not line.display_type">
+        <t t-if="not doc.property_sale">
+          <t t-call="property_sale.report_saleorder_line"/>
+        </t>
+        <t t-else="">
+          <t t-if="not line.reward_coupon_id">
+            <t t-call="property_sale.report_saleorder_line"/>
+          </t>
+          <t t-elif="not line.reward_coupon_id.property_sale">
+            <t t-call="property_sale.report_saleorder_line"/>
+          </t>
+        </t>
+      </t>
+    </xpath>
+
+    <div name="signature" position="replace"/>
+    <p t-field="doc.note" position="replace"/>
+    <p t-if="doc.payment_term_id.note" position="replace"/>
+    <p id="fiscal_position_remark" position="replace"/>
+
+    <xpath expr="//div[@name='so_total_summary']" position="inside">
+      <div class="float-left">
+        <p t-field="doc.note" />
+        <p t-if="doc.payment_term_id.note">
+            <span t-field="doc.payment_term_id.note"/>
+        </p>
+        <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+            <strong>Fiscal Position Remark:</strong>
+            <span t-field="doc.fiscal_position_id.sudo().note"/>
+        </p>
+      </div>
+      <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+          <div class="offset-8">
+              <strong>Customer's Signature</strong>
+          </div>
+          <div class="offset-8">
+              <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+          </div>
+          <div class="offset-8 text-center">
+              <p t-field="doc.signed_by"/>
+          </div>
+      </div>
+    </xpath>
+
+    <xpath expr="//div[@class='page']" position="after">
+      <div t-if="doc.property_sale" class="page" name="property_details">
+        <p style="page-break-after:always;"/>
+        <div class="clearfix">
+          <div class="card">
+            <div class="card-header">SAMPLE PAYMENT COMPUTATION AS OF <span t-esc="context_timestamp(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title border-info border-bottom">Property Details</h5>
+              <div class="d-flex flex-nowrap">
+                <div class="p-2 w-30">
+                  <p class="card-text">Unit/Block-Lot: <mark><span t-field="doc.property_id.block_lot"/> (<span t-field="doc.property_id.house_model_id.name"/>)</mark></p>
+                  <!-- <p class="card-text">Unit/House Model: <span t-field="doc.property_id.house_model_id.name"/></p> -->
+                  <!-- <p class="card-text">Model Type: <span t-field="doc.property_id.model_type_id.name"/></p> -->
+                  <p class="card-text">Subdivision: <span t-field="doc.property_id.subdivision_id.name"/></p>
+                </div>
+                <div class="p-2 w-45">
+                  <p class="card-text">Lot Area: <span t-field="doc.property_id.lot_area"/>m²</p>
+                  <p class="card-text">Floor Area: <span t-field="doc.property_id.floor_area"/>m²</p>
+                </div>
+                <div class="p-2">
+                  <p class="card-text">TCP (VAT Exclusive): <strong><mark><span class="text-right" t-field="doc.tcp"/></mark></strong></p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm">
+                <caption>
+                  <p>Downpayment Term: <span t-field="doc.downpayment_term_id.name"/></p>
+                  <p>Financing Type: <span t-field="doc.financing_type_id.name"/></p>
+                  <p>Financing Term: <span t-field="doc.financing_type_term_id.name"/></p>
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Computation Description</th>
+                    <th class="text-right" scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">TCP</th>
+                    <td class="text-right"><span t-field="doc.tcp"/></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">add: VAT</td>
+                    <td class="text-right"><span t-field="doc.property_vat"/></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">less: Buyer's Promo</td>
+                    <td class="text-right"><span t-field="doc.ntcp_discount_amount"/></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Net of Discount</th>
+                    <td class="text-right"><span t-field="doc.net_of_ntcp_discount_amount"/></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><span t-field="doc.downpayment_percent"/>% Downpayment</th>
+                    <td class="text-right"><span t-field="doc.downpayment_amount"/></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">less: Reservation Fee</td>
+                    <td class="text-right"><span t-field="doc.reservation_fee"/></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">less: DP Discount</td>
+                    <td class="text-right"><span t-field="doc.dp_discount_amount"/></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right">less: Spot DP</td>
+                    <td class="text-right"><mark><span t-field="doc.spot_amount"/></mark></td>
+                  </tr>
+                  <tr>
+                    <th class="text-right" scope="row">Amount Due</th>
+                    <td class="text-right"><span t-field="doc.dp_amount_due"/></td>
+                  </tr>
+                  <tr>
+                    <th class="text-right" scope="row"><span t-field="doc.downpayment_percent"/>%(<span t-field="doc.downpayment_term_id.month"/>)</th>
+                    <td class="text-right"><span t-field="doc.dp_monthly_due"/></td>
+                  </tr>
+                  <tr>
+                    <th class="text-right" scope="row">Balance <span t-field="doc.turned_over_balance_percent"/>% Upon Turnover</th>
+                    <td class="text-right"><span t-field="doc.turned_over_balance_amount"/></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-body row-cols-1 row-cols-md-3">
+              <h5 class="card-title border-info border-bottom">INDICATIVE MONTHLY AMORTIZATION RATES</h5>
+              <t t-foreach="doc.property_id.subdivision_phase_id.financing_type_ids" t-as="financing">
+                <div class="col mb-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"><span t-field="financing.name"/></h5>
+                      <table class="table table-sm table-borderless">
+                        <tr>
+                          <td>Payment Term</td>
+                          <td class="text-right">Monthly Due</td>
+                        </tr>
+                        <t t-foreach="financing.financing_term_ids" t-as="term">
+                          <tr>
+                            <td><span t-field="term.name"/></td>
+                            <td class="text-right">
+                              <span
+                                  t-esc="doc.compute_financing_term(term.year, term.interest_rate, doc.turned_over_balance_amount)"
+                                  t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'
+                              />
+                            </td>
+                          </tr>
+                        </t>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </t>
+            </div>
+          </div>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+</odoo>

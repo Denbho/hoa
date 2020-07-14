@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="journal_type"/>
+                    <field name="journal_group_ids" widget="many2many_tags"/>
+                </field>
+                <field name="journal_id"
+                       invisible="context.get('default_journal_id') and context.get('type', 'entry') != 'entry'"
+                       groups="account.group_account_user" options="{'no_create': True}"
+                       domain="[('type', '=?', invoice_filter_type_domain)]"
+                       attrs="{'readonly': [('name', '!=', '/')]}"/>
+
+                <xpath expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='account_id']"
+                       position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='name']" position="after">
+                    <field name="partner_allowed_account_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="account_id"
+                           attrs="{'required': [('display_type', 'not in', ('line_section', 'line_note'))],'invisible': [('display_type', 'in', ('line_section', 'line_note'))],}"
+                           domain="[('company_id', '=', parent.company_id), ('id', 'in', partner_allowed_account_ids)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_date']" position="before">
+                    <field name="processing_date"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <menuitem id="menu_partner_account_gl_type" name="Partner Default GL Account"
+                  parent="account.account_account_menu" groups="account.group_account_user" sequence="2"/>
+
+
+        <record id="partner_account_gl_type_form_view" model="ir.ui.view">
+            <field name="name">partner.account.gl.type.form</field>
+            <field name="model">partner.account.gl.type</field>
+            <field name="arch" type="xml">
+                <form string="Partner Default GL Account">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Title"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="ar_ap_type" widget="radio" options="{'horizontal': true}" invisible="1"/>
+                                <field name="sequence_id"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="account_id" domain="[('id', 'in', account_ids)]"/>
+                                <div>
+                                    <label for="other_account_ids" string="Other AP GL Account Allowed"
+                                           attrs="{'invisible': [('ar_ap_type', 'in', [False, 'Receivable'])]}"/>
+                                    <label for="other_account_ids" string="Other AR GL Account Allowed"
+                                           attrs="{'invisible': [('ar_ap_type', 'in', [False, 'Payable'])]}"/>
+                                </div>
+                                <div>
+                                    <field name="account_ids" invisible="1"/>
+                                    <field name="other_account_ids" domain="[('id', 'in', account_ids)]"
+                                           widget="many2many_tags"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="partner_account_gl_type_tree_view" model="ir.ui.view">
+            <field name="name">partner.account.gl.type.tree</field>
+            <field name="model">partner.account.gl.type</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Default GL Account">
+                    <field name="name"/>
+                    <field name="ar_ap_type"/>
+                    <field name="account_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_account_gl_type_act_window" model="ir.actions.act_window">
+            <field name="name">Vendor Default GL Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.account.gl.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_ar_ap_type': 'Payable'}</field>
+            <field name="domain">[('ar_ap_type', '=', 'Payable')]</field>
+        </record>
+
+        <menuitem name="Vendor Default GL Account" id="vendor_partner_account_gl_type_menu"
+                  parent="menu_partner_account_gl_type" action="partner_account_gl_type_act_window"/>
+
+        <record id="customer_partner_account_gl_type_act_window" model="ir.actions.act_window">
+            <field name="name">Customer Default GL Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.account.gl.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_ar_ap_type': 'Receivable'}</field>
+            <field name="domain">[('ar_ap_type', '=', 'Receivable')]</field>
+        </record>
+
+        <menuitem name="Customer Default GL Account" id="customer_partner_account_gl_type_menu"
+                  parent="menu_partner_account_gl_type" action="customer_partner_account_gl_type_act_window"/>
+
+    </data>
+</odoo>

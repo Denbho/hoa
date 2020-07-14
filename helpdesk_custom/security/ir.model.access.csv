@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ticketsource_ticketsource,access_ticketsource_ticketsource,model_ticketsource_ticketsource,base.group_user,1,1,1,1

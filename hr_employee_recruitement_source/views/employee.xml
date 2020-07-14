@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="inside">
+                    <group string="Recruitment">
+                        <group>
+                            <field name="application_id" readonly="1" force_save="1"/>
+                            <field name="application_remark" attrs="{'readonly': [('application_id', 'not in', [False])]}"/>
+                            <field name="medium_id"/>
+                            <field name="source_id"/>
+                        </group>
+                        <group>
+                            <field name="application_date" readonly="1" attrs="{'invisible': [('application_date', '=', False)]}"/>
+                            <field name="recruitment_date"/>
+                            <field name="onboarding_date"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
