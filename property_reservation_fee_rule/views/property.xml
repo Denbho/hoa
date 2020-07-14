@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="property_subdivision_phase_unit_model_view_form" model="ir.ui.view">
+        <field name="name">property.subdivision.phase.unit.model.form</field>
+        <field name="model">property.subdivision.phase.unit.model</field>
+        <field name="inherit_id" ref="property_base.property_subdivision_phase_unit_model_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reservation_fee']" position="replace">
+                <field name="rfo_reservation_amount" string="RFO Reservation"/>
+                <field name="rfo_reservation_amount" string="NRFO Reservation"/>
+                <field name="reservation_fee" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="housing_model_view_form" model="ir.ui.view">
+        <field name="name">housing.model.form</field>
+        <field name="model">housing.model</field>
+        <field name="inherit_id" ref="property_base.housing_model_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reservation_fee']" position="replace">
+                <field name="rfo_reservation_amount" string="RFO Reservation"/>
+                <field name="rfo_reservation_amount" string="NRFO Reservation"/>
+                <field name="reservation_fee" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="property_detail_view_form" model="ir.ui.view">
+        <field name="name">property.detail.form</field>
+        <field name="model">property.detail</field>
+        <field name="inherit_id" ref="property_base.property_detail_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reservation_fee']" position="replace">
+                <field name="rfo_reservation_amount" string="RFO Reservation"/>
+                <field name="nrfo_reservation_amount" string="NRFO Reservation"/>
+                <field name="reservation_fee" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="ir_cron_reserfee_rule_set" model="ir.cron">
+        <field name="name">Property: Reservation Fee Update</field>
+        <field name="model_id" ref="model_property_rsfee_rule"/>
+        <field name="state">code</field>
+        <field name="code">model.update_reservation_fee_rule()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="property_rsfee_rule_view_tree" model="ir.ui.view">
+        <field name="name">property.rsfee.rule.tree</field>
+        <field name="model">property.rsfee.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Property Reservation Fee Rule">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="rfo_reservation_fee_amount"/>
+                <field name="nrfo_reservation_fee_amount"/>
+                <field name="domain"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="property_rsfee_rule_view_form" model="ir.ui.view">
+        <field name="name">property.rsfee.rule.form</field>
+        <field name="model">property.rsfee.rule</field>
+        <field name="arch" type="xml">
+            <form string="Property Reservation Fee Rule">
+                <header>
+                    <button name="manual_force_update" type="object" class="oe_highlight"
+                            groups="base.group_no_one" string="Update Reservation Fee"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div groups="base.group_multi_company">
+                            <label for="company_id" class="oe_inline"/>
+                            <field name="company_id" class="oe_inline oe_input_align"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="subdivision_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="subdivision_phase_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="property_subdivision_phase_unit_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="house_model_id" domain="[('id', 'in', property_subdivision_phase_unit_ids)]" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="rule_based" widget="radio" class="oe_edit_only" options="{'horizontal': true}"/>
+                            <label for="range_start" string="Range"/>
+                            <div>
+                                <field name="range_start" class="oe_inline"/>
+                                <span> - </span>
+                                <field name="range_end" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="rfo_reservation_fee_amount"/>
+                            <field name="nrfo_reservation_fee_amount"/>
+                            <label for="date_start" string="Validity Dates"/>
+                            <div>
+                                <field name="date_start" class="oe_inline"/>
+                                <span> - </span>
+                                <field name="date_end" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Exceptions">
+                        <field name="property_detail_exception_ids" widget="many2many_tags" colspan="1"/>
+                    </group>
+                    <field name="domain" widget="domain" options="{'model': 'property.detail'}" colspan="2"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_property_rsfee_rule_form" model="ir.actions.act_window">
+        <field name="name">Reservation Fee Rules</field>
+        <field name="res_model">property.rsfee.rule</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_property_rsfee_rule" parent="property_base.menu_properties_settings"
+              action="action_property_rsfee_rule_form" sequence="10"/>
+
+</odoo>

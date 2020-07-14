@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_subscription_template_view_form" model="ir.ui.view">
+            <field name="name">sale.subscription.template.form</field>
+            <field name="model">sale.subscription.template</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_template_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/group[@name='online']" position="inside">
+                    <group name="hoa">
+                        <field name="subdivision_id"/>
+                        <field name="subdivision_phase_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_subscription_view_form" model="ir.ui.view">
+            <field name="name">sale.subscription.form</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@id='lines']/div/field[@name='recurring_invoice_line_ids']/tree/field[@name='name']"
+                       position="after">
+                    <field name="hoa_property_id"/>
+                </xpath>
+                <xpath expr="//page[@id='lines']/div/field[@name='recurring_invoice_line_ids']/form/group"
+                       position="inside">
+                    <group>
+                        <field name="hoa_property_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']"
+                       position="after">
+                    <field name="require_proprty_tag" invisible="1"/>
+                    <field name="hoa_subscription" invisible="1"/>
+                    <field name="subdivision_phase_id" optional="show"
+                           attrs="{'readonly': ['|',('hoa_subscription', '=', True), ('require_proprty_tag','=', False)], 'required': [('require_proprty_tag', '=', True)]}"/>
+                    <field name="hoa_property_id" string="HOA Property" optional="show"
+                           attrs="{'readonly': [('hoa_subscription', '=', False), ('require_proprty_tag','=', False)], 'required': ['|',('require_proprty_tag', '=', True), ('hoa_subscription', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
+                    <field name="hoa_subscription"/>
+                    <field name="subdivision_phase_id"/>
+                    <field name="hoa_property_id" string="HOA Property" attrs="{'invisible': [('hoa_subscription', '=', False)], 'required': [('hoa_subscription', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

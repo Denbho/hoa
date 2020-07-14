@@ -1,0 +1,21 @@
+
+v13.0.0.1
+=> Fixed issue of adding invoice_lines in validated invoice.
+
+v13.0.0.2
+- Added Selection Button which, when clicked, enables two radio buttons, i.e. 1) XLS 2) CSV and also a Button which lets you download the selected sample file.
+- By clicking on CSV with & without Account option, it downloads the sample file with or without accounts.
+- By clicking on XLS with or without Account option, it downloads the sample file with or without accounts.
+- When installing the module, the files get automatically downloaded in the ir.attachment model. From there, it is fetched to the sample files.
+
+
+13.0.0.3 ==>solved issues of sales person and date of invoice
+13.0.0.4 ==>applied warnings for blank values
+13.0.0.5 ==>solve issue of price.
+13.0.0.6 ==>Improved index of module.
+
+=> 13.0.0.7 : Improved an index with latest changes also add features.
+
+==>13.0.0.8:added discount field in import feature.
+
+=> 13.0.0.9 : Improved an index with added discount field.

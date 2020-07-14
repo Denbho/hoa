@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- Inherit Form view -->
+    <!-- <record id="view_users_form" model="ir.ui.view">
+      <field name="name">res.users.form</field>
+      <field name="model">res.users</field>
+      <field name="inherit_id" ref="partner_firstname.view_users_form"/>
+      <field name="arch" type="xml">
+        <field name="firstname" position="after">
+          <field name="middle_name"/>
+          <field name="suffix_name"/>
+        </field>
+      </field>
+    </record> -->
+
+    <record id="view_partner_simple_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="partner_firstname.view_partner_simple_form_firstname"/>
+      <field name="arch" type="xml">
+        <field name="firstname" position="after">
+          <field name="middle_name"/>
+          <field name="suffix_name"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_partner_form_firstname" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="partner_firstname.view_partner_form_firstname"/>
+      <field name="arch" type="xml">
+        <field name="firstname" position="after">
+          <field name="middle_name"/>
+          <field name="suffix_name"/>
+        </field>
+        <xpath expr="//field[@name='child_ids']/form//field[@name='firstname']" position="after">
+          <field name="middle_name"/>
+          <field name="suffix_name"/>
+        </xpath>
+      </field>
+    </record>
+
+    <!-- Inherit Form view -->
+    <record id="view_partner_form" model="ir.ui.view">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <!-- <div name="button_box" position="inside">
+            <button name="preview_contact"
+                type="object"
+                class="oe_stat_button"
+                icon="fa-globe icon">
+                <div class="o_field_widget o_stat_info">
+                    <span class="o_stat_text">Customer Account</span>
+                    <span class="o_stat_text">Preview</span>
+                </div>
+          </button>
+        </div> -->
+
+        <field name="phone" position="attributes">
+          <attribute name="string">Office No.</attribute>
+        </field>
+        <field name="title" position="attributes">
+          <attribute name="string">Title/Profession</attribute>
+        </field>
+        <field name="mobile" position="attributes">
+          <attribute name="string">Mobile No.</attribute>
+        </field>
+        <field name="vat" position="before">
+          <field name="years_on_address"/>
+        </field>
+        <field name="function" position="before">
+          <field name="partner_assign_number" placeholder="000001"/>
+        </field>
+        <page name="sales_purchases" position="inside">
+          <group>
+            <field name="property_purpose_id"/>
+            <field name="ad_source_ids" widget="many2many_checkboxes"/>
+          </group>
+        </page>
+        <notebook position="inside">
+          <page name="personal" string="Personal Information" attrs="{'invisible': [('is_company','=', True)]}">
+            <group>
+              <group>
+                <field name="nationality_country_id"/>
+                <field name="religion_id"/>
+                <field name="gender"/>
+                <field name="marital"/>
+                <field name="house_type_id"/>
+                <field name="home_number" widget="phone"/>
+              </group>
+              <group>
+                <field name="date_of_birth"/>
+                <field name="age" force_save="1" readonly="1"/>
+                <field name="age_range_id" force_save="1" readonly="1"/>
+                <field name="educational_attaiment_id"/>
+                <field name="mother_maiden_name"/>
+                <field name="number_of_dependencies"/>
+                <field name="spouse_partner_id"/>
+              </group>
+            </group>
+            <group>
+              <group>
+                <field name="co_borrower_partner_id"/>
+                <field name="co_borrower_relationship_id"/>
+                <field name="attorney_partner_id"/>
+                <field name="attorney_borrower_relationship_id"/>
+              </group>
+              <group>
+                <field name="employment_status_id" widget="selection"/>
+                <field name="salary_income"/>
+                <field name="other_income"/>
+                <field name="total_income"/>
+                <field name="monthly_income_range_id"/>
+              </group>
+            </group>
+            <group name="business" string="Business Information">
+              <field name="business_ids" nolabel="1" colspan="2"/>
+            </group>
+            <group name="work_info" string="Employment Information">
+              <field name="emp_company_name" placeholder="Company Name"/>
+              <group>
+                <field name="emp_country_id" placeholder="Country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                <div class="o_address_format" name="div_address" colspan="2">
+                  <field name="emp_street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
+                  <field name="emp_street2" placeholder="Subdivision" class="o_address_street"/>
+                  <field name="emp_city" placeholder="City" class="o_address_city" attrs="{'invisible': [('emp_country_id', 'in', [176])]}"/>
+                  <field name="emp_region" placeholder="Province, Region" class="o_address_city" attrs="{'invisible': [('emp_country_id', 'in', [176])]}"/>
+                  <field name="emp_city_id" placeholder="City" class="o_address_city" attrs="{'invisible': [('emp_country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="emp_province_id" placeholder="Province" class="o_address_city" attrs="{'invisible': [('emp_country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="emp_state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                  <field name="emp_island_group_id" placeholder="Island Group" attrs="{'invisible': [('emp_country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" class="o_address_city"/>
+                  <field name="emp_continent_region_id" placeholder="Continent Region" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="emp_continent_id" placeholder="Continent" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                </div>
+              </group>
+              <group>
+                <field name="emp_industry_id"/>
+                <field name="employment_date"/>
+                <field name="emp_contract_status"/>
+                <field name="emp_position_level"/>
+              </group>
+            </group>
+            <group name="financial" string="FINANCIAL REFERENCES">
+              <group name="loan" string="Loans">
+                <field name="loan_history_ids" help="Please provide the following information on your existing and previous loans" nolabel="1" colspan="2">
+                  <tree string="Loan" editable="top">
+                    <field name="name"/>
+                    <field name="type_of_loan"/>
+                    <field name="date_paid"/>
+                    <field name="maturity_date"/>
+                    <field name="monthly_amortization"/>
+                  </tree>
+                </field>
+              </group>
+              <group name="credit_card" string="CREDIT CARDS">
+                <field name="credit_card_ids" help="Please provide the following information on your existing and cancelled credit cards." nolabel="1" colspan="2">
+                  <tree string="Credit Cards" editable="top">
+                    <field name="name"/>
+                    <field name="card_holder_name"/>
+                  </tree>
+                </field>
+              </group>
+            </group>
+            <group name="personal_reference" string="PERSONAL REFERENCES">
+              <field name="personal_reference_ids" nolabel="1" colspan="2">
+                <tree string="Personal Reference" editable="top">
+                  <field name="name"/>
+                  <field name="buyer_relationship"/>
+                  <field name="address"/>
+                  <field name="contact_number"/>
+                  <field name="other"/>
+                </tree>
+              </field>
+            </group>
+          </page>
+          <page name="social" string="Social Media">
+            <field name="social_media_ids" colspan="2">
+              <tree string="Social Media" editable="top">
+                <field name="media_type_id"/>
+                <field name="name" widget="url"/>
+                <field name="description"/>
+              </tree>
+            </field>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+
+    <record id="res_partner_business_view_form" model="ir.ui.view">
+      <field name="name">res.partner.business.form</field>
+      <field name="model">res.partner.business</field>
+      <field name="arch" type="xml">
+        <form string="Business Details">
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name" default_focus="1" placeholder="Business Name"/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <field name="country_id" placeholder="Country"/>
+                <div class="o_address_format" name="div_address" colspan="2">
+                  <field name="street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
+                  <field name="street2" placeholder="Subdivision" class="o_address_street"/>
+                  <field name="city" placeholder="City" class="o_address_city" attrs="{'invisible': [('country_id', 'in', [176])]}"/>
+                  <field name="region" placeholder="Province, Region" class="o_address_city" attrs="{'invisible': [('country_id', 'in', [176])]}"/>
+                  <field name="barangay_id" placeholder="Barangay" class="o_address_city" attrs="{'invisible': [('country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="city_id" placeholder="City" class="o_address_city" attrs="{'invisible': [('country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="province_id" placeholder="Province" class="o_address_city" attrs="{'invisible': [('country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                  <field name="island_group_id" placeholder="Island Group" attrs="{'invisible': [('country_id', 'not in', [176])]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" class="o_address_city"/>
+                  <field name="continent_region_id" placeholder="Continent Region" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                  <field name="continent_id" placeholder="Continent" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                </div>
+              </group>
+              <group>
+                <field name="industry_id"/>
+                <field name="business_type"/>
+                <field name="establishment_date"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- <field name="city" placeholder="City" class="o_address_city" attrs="{'invisible': [('country_id.name', 'in', ['Philippines'])]}"/>
+    <field name="region" placeholder="Province, Region" class="o_address_city" attrs="{'invisible': [('country_id.name', 'in', ['Philippines'])]}"/>
+    <field name="barangay_id" placeholder="Barangay" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+      attrs="{'invisible': [('country_id.name', 'not in', ['Philippines'])]}"/>
+    <field name="city_id" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+      attrs="{'invisible': [('country_id.name', 'not in', ['Philippines'])]}"/>
+    <field name="province_id" placeholder="Province" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+      attrs="{'invisible': [('country_id.name', 'not in', ['Philippines'])]}"/> -->
+
+    <record id="res_partner_business_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.business.tree</field>
+      <field name="model">res.partner.business</field>
+      <field name="arch" type="xml">
+        <tree string="Business Details">
+          <field name="name"/>
+          <field name="city"/>
+          <field name="region"/>
+          <field name="country_id"/>
+          <field name="industry_id"/>
+          <field name="business_type"/>
+          <field name="establishment_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_educational_attainment_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.educational.attainment.tree</field>
+      <field name="model">res.partner.educational.attainment</field>
+      <field name="arch" type="xml">
+        <tree string="Educational Attainment" editable="top">
+          <field name="name"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_educational_attainment_action_form" model="ir.actions.act_window">
+      <field name="name">Educational Attainment</field>
+      <field name="res_model">res.partner.educational.attainment</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_educational_attainment_menu"
+        action="res_partner_educational_attainment_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partnerreligion_iew_tree" model="ir.ui.view">
+      <field name="name">res.partner.religion.tree</field>
+      <field name="model">res.partner.religion</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_religion_action_form" model="ir.actions.act_window">
+      <field name="name">Religion</field>
+      <field name="res_model">res.partner.religion</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_religion_menu"
+        action="res_partner_religion_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_house_type_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.house.type.tree</field>
+      <field name="model">res.partner.house.type</field>
+      <field name="arch" type="xml">
+        <tree string="House Type" editable="top">
+          <field name="name"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_house_type_action_form" model="ir.actions.act_window">
+      <field name="name">House Type</field>
+      <field name="res_model">res.partner.house.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_house_type_menu"
+        action="res_partner_house_type_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_buyer_relationship_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.buyer.relationship.tree</field>
+      <field name="model">res.partner.buyer.relationship</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_buyer_relationship_action_form" model="ir.actions.act_window">
+      <field name="name">Contact Relationship to Buyer</field>
+      <field name="res_model">res.partner.buyer.relationship</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_buyer_relationship_menu"
+        action="res_partner_buyer_relationship_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_employment_status_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.employment.status.tree</field>
+      <field name="model">res.partner.employment.status</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="parent_id"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_employment_status_action_form" model="ir.actions.act_window">
+      <field name="name">Employment Status</field>
+      <field name="res_model">res.partner.employment.status</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_employment_status_menu"
+        action="res_partner_employment_status_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_property_purpose_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.property.purpose.tree</field>
+      <field name="model">res.partner.property.purpose</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="description"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_property_purpose_action_form" model="ir.actions.act_window">
+      <field name="name">Property Purpose</field>
+      <field name="res_model">res.partner.property.purpose</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_property_purpose_menu"
+        action="res_partner_property_purpose_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_monthly_income_range_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.monthly.income.range.tree</field>
+      <field name="model">res.partner.monthly.income.range</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="range_from"/>
+          <field name="range_to"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_monthly_income_range_action_form" model="ir.actions.act_window">
+      <field name="name">Monthly Income Range</field>
+      <field name="res_model">res.partner.monthly.income.range</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_monthly_income_range_menu"
+        action="res_partner_monthly_income_range_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="res_partner_age_range_view_tree" model="ir.ui.view">
+      <field name="name">res.partner.age.range.tree</field>
+      <field name="model">res.partner.age.range</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+          <field name="range_from"/>
+          <field name="range_to"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="res_partner_age_range_action_form" model="ir.actions.act_window">
+      <field name="name">Age Range</field>
+      <field name="res_model">res.partner.age.range</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="res_partner_age_range_menu"
+        action="res_partner_age_range_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="utm_source_view_tree" model="ir.ui.view">
+      <field name="name">utm.source.tree</field>
+      <field name="model">utm.source</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="utm_source_action_form" model="ir.actions.act_window">
+      <field name="name">Lead Source</field>
+      <field name="res_model">utm.source</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="utm_source_menu"
+        action="utm_source_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+    <record id="social_media_type_view_tree" model="ir.ui.view">
+      <field name="name">social.media.type.tree</field>
+      <field name="model">social.media.type</field>
+      <field name="arch" type="xml">
+        <tree string="Religion" editable="top">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="social_media_type_action_form" model="ir.actions.act_window">
+      <field name="name">Social Media Type</field>
+      <field name="res_model">social.media.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="social_media_type_menu"
+        action="social_media_type_action_form" parent="contacts.res_partner_menu_config"
+        sequence="4"/>
+
+  </data>
+</odoo>

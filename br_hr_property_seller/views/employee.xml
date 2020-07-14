@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_partner_view_form_private" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="customer_account_gltype_id"/>
+                    <field name="property_account_receivable_id"/>
+                    <label for="customer_number"/>
+                    <div>
+                        <field name="customer_number" readonly="1" force_save="1"/>
+                        <button name="generate_partner_number" id="generate_customer_number" type="object"
+                                string="Generate ID" icon="fa-cog" class="oe_link"
+                                attrs="{'invisible': [('property_account_receivable_id', 'in', [False])]}"/>
+                    </div>
+                    <field name="vendor_account_gltype_id"/>
+                    <field name="property_account_payable_id"/>
+                    <label for="vendor_number"/>
+                    <div>
+                        <field name="vendor_number" readonly="1" force_save="1"/>
+                        <button name="generate_partner_number" id="generate_vendor_number" type="object"
+                                string="Generate ID" icon="fa-cog" class="oe_link" context="{'gltype': 'vendor'}"
+                                attrs="{'invisible': [('property_account_payable_id', 'in', [False])]}"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="property_crm.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='agent']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='broker']" position="before">
+                    <field name="seller_type"/>
+                </xpath>
+                <xpath expr="//field[@name='broker']" position="after">
+                    <field name="seller_division"/>
+                    <field name="application_date" attrs="{'invisible': [('broker', '=', False)]}"/>
+                    <field name="recruitment_date" attrs="{'invisible': [('broker', '=', False)]}"/>
+                    <field name="onboarding_date" attrs="{'invisible': [('broker', '=', False)]}"/>
+                    <field name="source_id"/>
+                    <field name="broker_remark"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mobile_phone']" position="before">
+                    <field name="seller"/>
+                    <field name="seller_type" widget="radio" options="{'horizontal': true}"
+                           attrs="{'invisible': [('seller', '=', False)], 'required': [('seller', '=', True)]}"/>
+                    <field name="vendor_number" attrs="{'invisible': [('seller', '=', False)]}"/>
+                    <field name="tin"/>
+                </xpath>
+                <xpath expr="//page[@name='public']" position="inside">
+                    <group string="Seller's Work Info" attrs="{'invisible': [('seller', '=', False)]}">
+                        <field name="seller_division" attrs="{'required': [('seller', '=', True)]}"/>
+                        <field name="broker_partner_id" attrs="{'required': [('seller', '=', True)]}"/>
+                        <field name="vendor_group_id" attrs="{'required': [('seller', '=', True)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

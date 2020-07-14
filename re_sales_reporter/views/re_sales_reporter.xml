@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- form view re_sales_reporter -->
+    <record id="re_sales_reporter_form" model="ir.ui.view">
+        <field name="name">re_sales_reporter.form</field>
+        <field name="model">re_sales_reporter.re_sales_reporter</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" nolabel="1" placeholder="Sales Order Number" style="font-size:30px;width:50%;"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="effective_rs_date"/>
+                            <field name="legal_entity"/>
+                            <field name="division_group"/>
+                            <field name="brand_group"/>
+                            <field name="customer_name"/>
+                            <field name="project_name"/>
+                            <field name="block_lot"/>
+                            <field name="sub_division"/>
+                            <field name="island_group"/>
+                            <field name="regional_cluster"/>
+                            <field name="region_cluster2"/>
+                            <field name="company_name"/>
+                            <field name="tcp_in_m"/>
+                            <field name="marketing_tl"/>
+                            <field name="cluster_head"/>
+                        </group>
+                        <group>
+                            <field name="company_code"/>
+                            <field name="project"/>
+                            <field name="reference_so_no"/>
+                            <field name="unit_type"/>
+                            <field name="area"/>
+                            <field name="region"/>
+                            <field name="province"/>
+                            <field name="lot_area"/>
+                            <field name="profiling_class"/>
+                            <field name="qtr"/>
+                            <field name="zip_code"/>
+                            <field name="zip_area"/>
+                            <field name="continental_area"/>
+                        </group>
+                    </group>
+                    <!-- </sheet>
+                    <sheet> -->
+                    <notebook>
+                        <page string="Milestone Dates">
+                            <group>
+                                <group>
+                                    <field name="creation_date"/>
+                                    <field name="rs_summary_date"/>
+                                    <field name="cts_date"/>
+                                    <field name="cancel_date"/>
+                                    <field name="reference_so_date"/>
+                                </group>
+                                <group>
+                                    <field name="rs_date"/>
+                                    <field name="rs_year"/>
+                                    <field name="rs_month"/>
+                                    <field name="full_dp_sched"/>
+                                    <field name="reference_so_cancel_date"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Financial Info">
+                            <group>
+                                <group>
+                                    <field name="rs_fee_or"/>
+                                    <field name="tcp"/>
+                                    <field name="ntcp_average"/>
+                                    <field name="ntcp_in_m_average"/>
+                                    <field name="vat"/>
+                                    <field name="dp_percentage"/>
+                                    <field name="dp_amt"/>
+                                    <field name="la_amt"/>
+                                </group>
+                                <group>
+                                    <field name="res_fee"/>
+                                    <field name="tcp_average"/>
+                                    <field name="ntcp"/>
+                                    <field name="ntcp_in_m"/>
+                                    <field name="dp_terms"/>
+                                    <field name="mcc"/>
+                                    <field name="dp_paid_percentage"/>
+                                    <field name="cr_balance"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Sales Info">
+                            <group>
+                                <group>
+                                    <field name="month_name"/>
+                                    <field name="employment_type"/>
+                                    <field name="broker"/>
+                                    <field name="realty_name"/>
+                                </group>
+                                <group>
+                                    <field name="broker_group"/>
+                                    <field name="managing_director"/>
+                                    <field name="sales_manager"/>
+                                    <field name="property_consultant"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Status Info">
+                            <group>
+                                <group>
+                                    <field name="bldg_status"/>
+                                    <field name="houseunit_status"/>
+                                    <field name="so_order_type"/>
+                                </group>
+                                <group>
+                                    <field name="sales_status"/>
+                                    <field name="type_of_sale"/>
+                                    <field name="count"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Sales Profile">
+                            <group>
+                                <group>
+                                    <field name="industry"/>
+                                    <field name="media"/>
+                                    <field name="financing_type"/>
+                                    <field name="marital_status"/>
+                                    <field name="monthly_income_range"/>
+                                    <field name="brand"/>
+                                </group>
+                                <group>
+                                    <field name="employment_country"/>
+                                    <field name="country"/>
+                                    <field name="age_bracket"/>
+                                    <field name="gender"/>
+                                    <field name="profession"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Others">
+                            <group>
+                                <group>
+                                    <field name="dp_terms"/>
+                                    <field name="full_dp_sched"/>
+                                    <field name="vat"/>
+                                    <field name="lot_price_average"/>
+                                    <field name="house_price_average"/>
+                                    <field name="dp_amt"/>
+                                    <field name="la_amt"/>
+                                    <field name="dp_paid"/>
+                                    <field name="dp_paid_percentage"/>
+                                    <field name="rs_fee_or"/>
+                                    <field name="res_fee"/>
+                                    <field name="reference_so_no"/>
+                                </group>
+                                <group>
+                                    <field name="houseunit_status"/>
+                                    <field name="house_model"/>
+                                    <field name="floor_area"/>
+                                    <field name="lot_price"/>
+                                    <field name="house_price"/>
+                                    <field name="type_of_development"/>
+                                    <field name="rs_by_class"/>
+                                    <field name="rs_by_house_model_class"/>
+                                    <field name="rs_per_vendor_group"/>
+                                    <field name="rs_by_employment_countryregion"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view re_sales_reporter-->
+    <record id="re_sales_reporter_tree" model="ir.ui.view">
+        <field name="name">re_sales_reporter.tree</field>
+        <field name="model">re_sales_reporter.re_sales_reporter</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="rs_year"/>
+                <field name="rs_month"/>
+                <field name="rs_summary_date"/>
+                <field name="so_order_type"/>
+                <field name="customer_name"/>
+                <field name="type_of_sale"/>
+                <field name="rs_date"/>
+                <field name="cts_date"/>
+                <field name="creation_date"/>
+                <field name="cancel_date"/>
+                <field name="dp_percentage"/>
+                <field name="dp_terms"/>
+                <field name="full_dp_sched"/>
+                <field name="tcp"/>
+                <field name="ntcp"/>
+                <field name="vat"/>
+                <field name="mcc"/>
+                <field name="ntcp_in_m"/>
+                <field name="dp_amt"/>
+                <field name="la_amt"/>
+                <field name="dp_paid"/>
+                <field name="dp_paid_percentage"/>
+                <field name="cr_balance"/>
+                <field name="project"/>
+                <field name="project_name"/>
+                <field name="block_lot"/>
+                <field name="unit_type"/>
+                <field name="houseunit_status"/>
+                <field name="house_model"/>
+                <field name="bldg_status"/>
+                <field name="sales_status"/>
+                <field name="rs_fee_or"/>
+                <field name="res_fee"/>
+                <field name="reference_so_no"/>
+                <field name="reference_so_date"/>
+                <field name="reference_so_cancel_date"/>
+                <field name="employment_type"/>
+                <field name="broker_group"/>
+                <field name="broker"/>
+                <field name="managing_director"/>
+                <field name="realty_name"/>
+                <field name="sales_manager"/>
+                <field name="property_consultant"/>
+                <field name="industry"/>
+                <field name="employment_country"/>
+                <field name="country"/>
+                <field name="media"/>
+                <field name="financing_type"/>
+                <field name="age_bracket"/>
+                <field name="marital_status"/>
+                <field name="gender"/>
+                <field name="monthly_income_range"/>
+                <field name="profession"/>
+                <field name="brand"/>
+                <field name="brand_group"/>
+                <field name="division_group"/>
+                <field name="sub_division"/>
+                <field name="count"/>
+                <field name="month_name"/>
+                <field name="island_group"/>
+                <field name="regional_cluster"/>
+                <field name="region_cluster2"/>
+                <field name="region"/>
+                <field name="province"/>
+                <field name="area"/>
+                <field name="project_name"/>
+                <field name="type_of_development"/>
+                <field name="rs_by_class"/>
+                <field name="rs_by_house_model_class"/>
+                <field name="rs_per_vendor_group"/>
+                <field name="rs_by_employment_countryregion"/>
+                <field name="lot_area"/>
+                <field name="floor_area"/>
+                <field name="lot_price"/>
+                <field name="house_price"/>
+                <field name="legal_entity"/>
+                <field name="company_code"/>
+                <field name="company_name"/>
+                <field name="profiling_class"/>
+                <field name="tcp_in_m"/>
+                <field name="marketing_tl"/>
+                <field name="cluster_head"/>
+                <field name="qtr"/>
+                <field name="zip_code"/>
+                <field name="zip_area"/>
+                <field name="continental_area"/>
+                <field name="ntcp_average"/>
+                <field name="ntcp_in_m_average"/>
+                <field name="tcp_average"/>
+                <field name="lot_price_average"/>
+                <field name="house_price_average"/>
+                <field name="effective_rs_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- graph view re_sales_reporter-->
+    <record id="re_sales_reporter_graph" model="ir.ui.view">
+        <field name="name">re_sales_reporter.graph</field>
+        <field name="model">re_sales_reporter.re_sales_reporter</field>
+        <field name="arch" type="xml">
+            <graph string="RE Sales Reporter Graph">
+                <field name="name"/>
+                <field name="tcp"/>
+                <field name="ntcp"/>
+                <field name="ntcp_average"/>
+                <field name="project_name"/>
+                <field name="brand_group"/>
+                <field name="realty_name"/>
+                <field name="sub_division"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- pivot view re_sales_reporter-->
+    <record id="re_sales_reporter_pivot" model="ir.ui.view">
+        <field name="name">re_sales_reporter.pivot</field>
+        <field name="model">re_sales_reporter.re_sales_reporter</field>
+        <field name="arch" type="xml">
+            <pivot string="RE Sales Reporter Pivot" default_order="ntcp desc, rs_date desc" >
+                <field name="name"/>
+                <field name="tcp"/>
+                <field name="ntcp"/>
+                <field name="ntcp_average"/>
+                <field name="project_name"/>
+                <field name="brand_group"/>
+                <field name="realty_name"/>
+                <field name="sub_division"/>
+            </pivot>
+        </field>
+    </record>
+    <!-- action for re_sales_reporter -->
+    <record id="re_sales_reporter_action" model="ir.actions.act_window">
+        <field name="name">Sales Reports</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">re_sales_reporter.re_sales_reporter</field>
+        <field name="view_mode">pivot,tree,form,graph</field>
+    </record>
+
+    <!-- menu re_sales_reporter -->
+    <menuitem id="re_sales_reporter_menu" name="Summary Reports" sequence="201" action="re_sales_reporter_action"></menuitem>
+    <menuitem id="re_sales_reporter_submenu" name="Reservation Sales" parent="re_sales_reporter_menu" sequence="1" action="re_sales_reporter_action"></menuitem>
+
+</odoo>

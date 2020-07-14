@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_crm_lead2opportunity_partner" model="ir.ui.view">
+            <field name="name">crm.lead2opportunity.partner.form</field>
+            <field name="model">crm.lead2opportunity.partner</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='name']" position="replace">
+                    <group name="name">
+                        <field name="name" widget="radio"/>
+                    </group>
+                    <group string="Criteria for Duplicate Leads/Opportunities">
+                        <field name="contact_name"/>
+                        <field name="lead_name"/>
+                        <field name="salesteam"/>
+                        <field name="salesperson"/>
+                        <field name="subdivision"/>
+                        <field name="subdivision_project"/>
+                        <field name="unit_model"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_crm_lead2opportunity_partner_mass" model="ir.ui.view">
+            <field name="name">crm.lead2opportunity.partner.mass.form</field>
+            <field name="model">crm.lead2opportunity.partner.mass</field>
+            <field name="inherit_id" ref="crm.view_crm_lead2opportunity_partner_mass"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//group" position="replace">
+                    <group name="name">
+                        <field name="name" class="oe_inline" widget="radio"/>
+                        <field name="deduplicate" class="oe_inline"/>
+                    </group>
+                    <group string="Criteria for Duplicate Leads/Opportunities">
+                        <field name="contact_name"/>
+                        <field name="lead_name"/>
+                        <field name="salesteam"/>
+                        <field name="salesperson"/>
+                        <field name="subdivision"/>
+                        <field name="subdivision_project"/>
+                        <field name="unit_model"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

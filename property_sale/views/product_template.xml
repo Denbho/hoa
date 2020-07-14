@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="product_property_buy_now" inherit_id="website_sale.product_buy_now" active="False" customize_show="True" name="Reserve/Buy Now Button">
+    <xpath expr="//a[@id='buy_now']" position="replace">
+      <a t-if="not product.is_property" role="button" id="buy_now" class="btn btn-outline-primary btn-lg mt16 d-block d-sm-inline-block" href="#"><i class="fa fa-bolt"/>
+        <span t-if="not product.is_property"> Buy Now </span>
+        <span t-else=""> Reserve Now </span>
+      </a>
+    </xpath>
+  </template>
+
+  <template id="product_property" name="Product" track="1" inherit_id="website_sale.product">
+    <xpath expr="//a[@id='add_to_cart']" position="replace">
+      <a role="button" t-if="not product.is_property" id="add_to_cart" class="btn btn-primary btn-lg mt16 js_check_product a-submit d-block d-sm-inline-block" href="#"><i class="fa fa-shopping-cart"/> Add to Cart</a>
+    </xpath>
+  </template>
+
+</odoo>

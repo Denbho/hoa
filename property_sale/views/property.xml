@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- Inherit Form view -->
+  <record id="property_detail_view_form" model="ir.ui.view">
+    <field name="name">property.detail.form</field>
+    <field name="model">property.detail</field>
+    <field name="inherit_id" ref="property_base.property_detail_view_form"/>
+    <field name="arch" type="xml">
+      <field name="model_type_id" position="before">
+        <field name="product_id" help="Invetory Name used in eCommerce and Sales"
+            domain="['|', ('name', '=', 'name'), ('property_id', '=', active_id)]"
+            context="{'default_property_id': active_id, 'default_is_property': 1, 'default_list_price': reservation_fee, 'default_company_id': company_id, 'default_type': 'product'}"
+            attrs="{'readonly': [('state', 'not in', ['Available'])], 'invisible': [('name', '=', False)]}"/>
+      </field>
+      <field name="tcp" position="after">
+        <field name="tcp_marketing_markup"/>
+      </field>
+    </field>
+  </record>
+
+  <!-- Inherit Form view -->
+  <record id="property_subdivision_phase_view_form" model="ir.ui.view">
+    <field name="name">property.subdivision.phase.form</field>
+    <field name="model">property.subdivision.phase</field>
+    <field name="inherit_id" ref="property_base.property_subdivision_phase_view_form"/>
+    <field name="arch" type="xml">
+      <field name="description" position="before">
+        <field name="downpayment_term_ids" widget="many2many_tags"/>
+        <field name="financing_type_ids" widget="many2many_tags"/>
+      </field>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_property_rsfee_rule_user,property_rsfee_rule_user,model_property_rsfee_rule,,1,0,0,0
+access_property_rsfee_rule_admin,property_rsfee_rule_admin,model_property_rsfee_rule,property_base.group_property_admin,base.group_no_one,1,1,1,1

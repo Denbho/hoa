@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="contact_portal_share_action" model="ir.actions.act_window">
+      <field name="name">Share Document - Update Contact Information</field>
+      <field name="res_model">res.partner</field>
+      <field name="binding_model_id" ref="portal.model_portal_share"/>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+  </record>
+
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='personal_information']/group" position="inside">
+                    <group string="Social Media">
+                        <field name="social_media_ids" colspan="2" nolabel="1">
+                            <tree string="Social Media" editable="top">
+                                <field name="media_type_id"/>
+                                <field name="name" widget="url"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
