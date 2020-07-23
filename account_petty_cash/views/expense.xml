@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hr_expense_sheet_form" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.form</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <page name="other_info" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </page>
+                <group name="employee_details" position="after">
+                    <group name="custodian">
+                        <field name="valid_user_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="user_id" id="custodian" string="Custodian" domain="[('id', 'in', valid_user_ids)]" options="{'no_open': True, 'no_create': True}"/>
+                        <field name="petty_cash_account_id" options="{'no_open': True, 'no_create': True}"
+                               attrs="{'invisible': [('payment_mode', '!=', 'company_account')]}" domain="[('user_id', '=', user_id)]"/>
+                        <field name="journal_id" options="{'no_open': True, 'no_create': True}"
+                               attrs="{'invisible': [('payment_mode', '!=', 'own_account')]}"
+                               context="{'default_company_id': company_id}"/>
+                        <field name="bank_journal_id" groups="account.group_account_user"
+                               options="{'no_open': True, 'no_create': True}"
+                               attrs="{'invisible': [('payment_mode', '!=', 'company_account')]}"
+                               context="{'default_company_id': company_id}"/>
+                        <field name="accounting_date" groups="account.group_account_user"
+                               attrs="{'invisible': [('state', 'not in', ['approve', 'post', 'done'])]}"/>
+                        <field name="account_move_id" groups="account.group_account_user"
+                               attrs="{'invisible': [('state', 'not in', ['post', 'done'])]}" readonly="1"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>
