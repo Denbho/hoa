@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="property_crm.crm_lead_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='agent_partner_id']" position="after">
+                    <field name="agent_hr_employee_id"/>
+                </xpath>
+                <xpath expr="//field[@name='sales_manager_partner_id']" position="after">
+                    <field name="sales_manager_hr_employee_id"/>
+                </xpath>
+                <xpath expr="//field[@name='sales_manager_partner_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='agent_partner_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="property_seller_list_view_tree" model="ir.ui.view">
+            <field name="name">property.seller.list.view.tree</field>
+            <field name="model">property.seller.list</field>
+            <field name="arch" type="xml">
+                <tree string="Sellers List" create="false" edit="false" delete="false">
+                    <field name="seller_id" invisible="1"/>
+                    <button name="action_open_seller_profile" type="object" icon="fa-eye" help="View Seller's Profile"
+                        class="oe_link"/>
+                    <field name="vendor_number"/>
+                    <field name="name"/>
+                    <field name="firstname" optional="hide"/>
+                    <field name="middle_name" optional="hide"/>
+                    <field name="lastname" optional="hide"/>
+                    <field name="suffix_name" optional="hide"/>
+                    <field name="type" optional="show"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="seller_social_media_ids" widget="many2many_tags" optional="show"/>
+                    <field name="dob" optional="hide"/>
+                    <field name="mobile" optional="show"/>
+                    <field name="phone" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="seller_division" optional="show"/>
+                    <field name="broker_partner" optional="show"/>
+                    <field name="vendor_group_id" optional="show"/>
+                    <field name="application_date" optional="hide"/>
+                    <field name="recruitment_date" optional="hide"/>
+                    <field name="onboarding_date" optional="hide"/>
+                    <field name="source_id" optional="hide"/>
+                    <field name="remark" optional="show"/>
+                    <field name="street" optional="show"/>
+                    <field name="street2" optional="show"/>
+                    <field name="barangay_id" optional="show"/>
+                    <field name="city_id" optional="show"/>
+                    <field name="province_id" optional="show"/>
+                    <field name="state_id" optional="show"/>
+                    <field name="island_group_id" optional="hide"/>
+                    <field name="country_id" optional="show"/>
+                    <field name="continent_region_id" optional="hide"/>
+                    <field name="continent_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_property_seller_list_filter" model="ir.ui.view">
+            <field name="name">property.seller.list.search</field>
+            <field name="model">property.seller.list</field>
+            <field name="arch" type="xml">
+                <search string="Sellers List">
+                    <field name="name" string="Employee"
+                           filter_domain="['|','|','|','|', ('vendor_number', 'ilike', self),'|', ('lastname', 'ilike', self), ('firstname', 'ilike', self), ('suffix_name', 'ilike', self), ('middle_name', 'ilike', self), ('name', 'ilike', self)]"/>
+                    <field name="type"/>
+                    <field name="remark"/>
+                    <field name="broker_partner"/>
+                    <field name="seller_social_media_ids"/>
+                    <field name="barangay_id"/>
+                    <field name="city_id"/>
+                    <field name="province_id"/>
+                    <field name="state_id"/>
+                    <field name="island_group_id"/>
+                    <field name="country_id"/>
+                    <field name="continent_region_id"/>
+                    <field name="continent_id"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="seller_type" string="Seller type" domain="[]" context="{'group_by': 'type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building"/>
+                        <field name="type" icon="fa-users"/>
+                        <field name="seller_division" icon="fa-map-marker"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+
+        <record id="property_seller_list_action" model="ir.actions.act_window">
+            <field name="name">Sellers List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">property.seller.list</field>
+            <field name="view_mode">tree,pivot</field>
+        </record>
+
+        <menuitem
+            id="menu_property_seller_list_report"
+            name="Sellers List Report"
+            parent="crm.crm_menu_report"
+            action="property_seller_list_action"
+            sequence="1"/>
+
+
+    </data>
+</odoo>

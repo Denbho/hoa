@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_salesman_crm_reports_group" model="res.groups">
+            <field name="name">CRM Reports Only</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="comment">the user will have access to all CRM Reports.</field>
+        </record>
+
+    </data>
+</odoo>

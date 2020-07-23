@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_re_sales_reporter_re_sales_reporter_user,User Access RE Sales Reporter,model_re_sales_reporter_re_sales_reporter,re_sales_reporter.group_user,1,0,0,0
+access_re_sales_reporter_re_sales_reporter_admin,Admin Access RE Sales Reporter,model_re_sales_reporter_re_sales_reporter,re_sales_reporter.group_admin,1,1,1,0
+access_re_sales_reporter_re_sales_reporter_super_admin,Super Admin Access RE Sales Reporter,model_re_sales_reporter_re_sales_reporter,re_sales_reporter.group_super_admin,1,1,1,1

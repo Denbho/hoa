@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <menuitem id="crm.crm_menu_report"
+        name="Reporting"
+        parent="crm.crm_menu_root"
+        sequence="20"
+        groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"/>
+
+    <!-- Inherit Form view -->
+    <record id="crm_lead_view_form" model="ir.ui.view">
+      <field name="name">crm.lead.form</field>
+      <field name="model">crm.lead</field>
+      <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group" position="inside">
+          <group name="social" string="Social Media" attrs="{'invisible': [('type', '=', 'opportunity')]}">
+            <field name="social_media_ids" colspan="2" nolabel="1">
+              <tree string="Social Media" editable="top">
+                <field name="media_type_id"/>
+                <field name="name" widget="url"/>
+                <field name="description"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+        <xpath expr="//page[@name='lead']/group" position="inside">
+          <group name="social" string="Social Media">
+            <field name="social_media_ids" colspan="2" nolabel="1">
+              <tree string="Social Media" editable="top">
+                <field name="media_type_id"/>
+                <field name="name" widget="url"/>
+                <field name="description"/>
+              </tree>
+            </field>
+          </group>
+        </xpath>
+        <xpath expr="//group/group/div[@class='o_address_format']" position="replace">
+          <div class="o_address_format">
+            <field name="street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
+            <field name="street2" placeholder="Subdivision" class="o_address_street"/>
+            <field name="barangay_id" placeholder="Barangay" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="city" placeholder="City" class="o_address_city" invisible="1"/>
+            <field name="city_id" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="province_id" placeholder="Province" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+            <field name="island_group_id" placeholder="Island Group" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" class="o_address_city"/>
+            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="continent_region_id" placeholder="Continent Region" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="continent_id" placeholder="Continent" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+          </div>
+        </xpath>
+
+        <xpath expr="//page[@name='lead']/group/group/div[@class='o_address_format']" position="replace">
+          <div class="o_address_format">
+            <field name="street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
+            <field name="street2" placeholder="Subdivision" class="o_address_street"/>
+            <field name="barangay_id" placeholder="Barangay" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="city" placeholder="City" class="o_address_city" invisible="1"/>
+            <field name="city_id" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="province_id" placeholder="Province" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+            <field name="island_group_id" placeholder="Island Group" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" class="o_address_city"/>
+            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="continent_region_id" placeholder="Continent Region" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+            <field name="continent_id" placeholder="Continent" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+          </div>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>

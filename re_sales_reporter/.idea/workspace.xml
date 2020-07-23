@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e0aa752d-4fc8-4178-857b-b75d662ece9b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="re_sales_reporter" />
+  </component>
+  <component name="ProjectId" id="1YfVD5NHsGLt6YB2UPkHg2f9rW8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/odoo_sh/master-dev-re_rs_reporter_v0.2/briahomes/re_sales_reporter" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/security" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="odoo-bin" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="re_sales_reporter" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../odoo" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../odoo/odoo-bin" />
+      <option name="PARAMETERS" value="-c $PROJECT_DIR$/../../odoo/odoo13.conf -u re_sales_reporter" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0aa752d-4fc8-4178-857b-b75d662ece9b" name="Default Changelist" comment="" />
+      <created>1583333512154</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583333512154</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="418" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584052160784">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state x="418" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.984@0.27.1920.984" timestamp="1584052160784" />
+    <state x="743" y="276" width="424" height="484" key="FileChooserDialogImpl" timestamp="1584116777019">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state x="743" y="276" width="424" height="484" key="FileChooserDialogImpl/0.27.1920.984@0.27.1920.984" timestamp="1584116777019" />
+    <state width="1897" height="256" key="GridCell.Tab.0.bottom" timestamp="1584115537934">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state width="1897" height="256" key="GridCell.Tab.0.bottom/0.27.1920.984@0.27.1920.984" timestamp="1584115537934" />
+    <state width="1897" height="256" key="GridCell.Tab.0.center" timestamp="1584115537933">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state width="1897" height="256" key="GridCell.Tab.0.center/0.27.1920.984@0.27.1920.984" timestamp="1584115537933" />
+    <state width="1897" height="256" key="GridCell.Tab.0.left" timestamp="1584115537933">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state width="1897" height="256" key="GridCell.Tab.0.left/0.27.1920.984@0.27.1920.984" timestamp="1584115537933" />
+    <state width="1897" height="256" key="GridCell.Tab.0.right" timestamp="1584115537934">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state width="1897" height="256" key="GridCell.Tab.0.right/0.27.1920.984@0.27.1920.984" timestamp="1584115537934" />
+    <state x="616" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1584091206087">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state x="616" y="345" key="com.intellij.ide.util.TipDialog/0.27.1920.984@0.27.1920.984" timestamp="1584091206087" />
+    <state x="528" y="33" width="863" height="969" key="find.popup" timestamp="1583516299821">
+      <screen x="0" y="27" width="1920" height="984" />
+    </state>
+    <state x="528" y="33" width="863" height="969" key="find.popup/0.27.1920.984@0.27.1920.984" timestamp="1583516299821" />
+  </component>
+</project>

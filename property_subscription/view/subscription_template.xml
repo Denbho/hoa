@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="subscription" inherit_id="sale_subscription.subscription" name="Tenant Subscription">
+        <xpath expr="//table[@id='wc-account-table']/thead/tr/th" position="after">
+            <t t-set="with_property" t-value="account.is_property_subscription()"/>
+            <th t-if="with_property == True" class="text-left">Property</th>
+        </xpath>
+        <xpath expr="//table[@id='wc-account-table']/tbody/tr/td" position="after">
+            <td t-if="with_property == True" class="text-left"><span t-field="line.hoa_property_id.name"/></td>
+        </xpath>
+        <xpath expr="//table[@id='wc-account-table']/tfoot/tr/td" position="before">
+            <td t-if="with_property == True"/>
+        </xpath>
+    </template>
+
+    <template id="report_saleorder_document" name="Tenant Subscription Sales Report"
+              inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th" position="before">
+            <t t-set="with_property" t-value="doc.is_property_subscription()"/>
+            <th t-if="with_property == True" class="text-left">Property</th>
+        </xpath>
+    </template>
+
+    <!-- Must be move to other Module-->
+    <template id="report_saleorder_line" name="Tenant Subscription Sales line Report"
+              inherit_id="property_sale.report_saleorder_line">
+        <td name="td_name" position="before">
+            <t t-set="with_property" t-value="line.order_id.is_property_subscription()"/>
+            <td t-if="with_property == True" class="text-left"><span t-field="line.hoa_property_id.name"/></td>
+        </td>
+    </template>
+
+    <template id="report_invoice_document" name="Tenant Subscription Invoices" inherit_id="account.report_invoice_document">
+        <t t-set="display_discount" position="after">
+            <t t-set="display_property" t-value="any([l.hoa_subscription for l in o.invoice_line_ids])"/>
+        </t>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th" position="before">
+            <th t-if="display_property" class="text-left">Property</th>
+        </xpath>
+        <xpath expr="//t[@name='account_invoice_line_accountable']/td" position="before">
+             <td t-if="display_property">
+                 <span t-field="line.hoa_property_id.name" t-options="{'widget': 'text'}"/>
+             </td>
+        </xpath>
+
+    </template>
+
+</odoo>

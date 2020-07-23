@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="petty_cash_category_group" model="ir.module.category">
+            <field name="name">Petty Cash Custodian</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="petty_cash_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="petty_cash_category_group"/>
+        </record>
+
+        <record id="petty_cash_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="petty_cash_category_group"/>
+            <field name="implied_ids" eval="[(4, ref('petty_cash_user'))]"/>
+        </record>
+    </data>
+    <data>
+
+        <record id="account_payment_transaction_action" model="ir.actions.act_window">
+            <field name="name">Transactions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="expense_sheet_liquidation_action" model="ir.actions.act_window">
+            <field name="name">Expenses Liquidations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.expense.sheet</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('petty_cash_account_id', '=', active_id)]</field>
+        </record>
+
+        <record id="action_account_report_petty_cash_reconciliation_with_journal" model="ir.actions.client">
+            <field name="name">Petty Cash GL</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.bank.reconciliation.report'}"/>
+        </record>
+
+        <record id="petty_cash_journal_audit_view_form" model="ir.ui.view">
+            <field name="name">account.common.report.view.form</field>
+            <field name="model">account.common.report</field>
+            <field name="arch" type="xml">
+                <form string="Journal Audit">
+                    <group col="4">
+                        <field name="target_move" widget="radio"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                        <field name="journal_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                    </group>
+                    <footer>
+                        <button name="check_report" string="Print" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="petty_cash_account_root" name="Petty Cash" sequence="40"/>
+
+        <record id="account_petty_cash_view_form" model="ir.ui.view">
+            <field name="name">account.petty.cash.view.form</field>
+            <field name="model">account.petty.cash</field>
+            <field name="arch" type="xml">
+                <form string="Petty Cash Management">
+                    <div class="alert alert-danger" role="alert" style="margin-bottom:0px;"
+                         attrs="{'invisible': [('threshold_limit', '=', False)]}">
+                        This Petty Cash account has already reached its Threshold Balance. Please
+                        Replenish it.
+                    </div>
+                    <header>
+                        <button name="open_journal_reconciliation"
+                                string="GL Status" class="oe_highlight" type="object"/>
+<!--                        <button name="open_journal_audit"-->
+<!--                                string="Print Journal Audit" class="oe_highlight" type="object"/>-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="expense_button_box">
+                            <button name="%(expense_sheet_liquidation_action)d"
+                                    context="{'default_user_id': user_id, 'default_petty_cash_account_id': active_id, 'search_default_state': 1}"
+                                    type="action" class="oe_stat_button" icon="fa-book"
+                                    help="Expenses Liquidation Report">
+                                Expenses
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="threshold_limit" invisible="1"/>
+                                <field name="name"/>
+                            </h1>
+                            <div groups="account_petty_cash.petty_cash_manager">
+                                <label for="journal_id" class="oe_inline"/>
+                                <field name="journal_id" class="oe_inline oe_input_align"
+                                       domain="[('company_id', '=', company_id), ('type', '=', 'cash')]"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group groups="account_petty_cash.petty_cash_manager">
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="user_id"/>
+                                <field name="balance_threshold_amount"/>
+                                <field name="threshold_notify_user_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <label for="total_fund_transfer"/>
+                                <div>
+                                    <field name="total_fund_transfer" class="oe_inline"/>
+                                    <button class="oe_link oe_inline" name="action_open_fund_transfers" type="object"
+                                            icon="fa-book"
+                                            attrs="{'invisible': [('total_fund_transfer', '=', 0)]}"/>
+                                </div>
+                                <label for="total_transaction"/>
+                                <div>
+                                    <field name="total_transaction" class="oe_inline"/>
+                                    <button class="oe_link oe_inline" name="action_open_transactions" type="object"
+                                            icon="fa-book"
+                                            attrs="{'invisible': [('total_transaction', '=', 0)]}"/>
+                                </div>
+                                <field name="balance_amount"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_petty_cash_view_tree" model="ir.ui.view">
+            <field name="name">account_petty_cash_view_tree</field>
+            <field name="model">account.petty.cash</field>
+            <field name="arch" type="xml">
+                <tree string="Petty Cash Account Tree"
+                    decoration-warning="balance_threshold_amount == balance_amount"
+                    decoration-danger="threshold_limit == True">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="threshold_limit" invisible="1"/>
+                    <field name="user_id"/>
+                    <field name="balance_amount"/>
+                    <field name="balance_threshold_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_petty_cash_action" model="ir.actions.act_window">
+            <field name="name">My Petty Cash Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.petty.cash</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('user_id', '=', uid)]</field>
+            <field name="context">{'default_user_id': uid}</field>
+        </record>
+
+        <menuitem id="menu_my_petty_cash_account" name="Petty Cash" parent="petty_cash_account_root"
+                  action="account_petty_cash_action" sequence="1" groups="account_petty_cash.petty_cash_user"/>
+
+        <record id="all_account_petty_cash_action" model="ir.actions.act_window">
+            <field name="name">All Petty Cash Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.petty.cash</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_all_petty_cash_account" name="All Petty Cash" parent="petty_cash_account_root"
+                  action="all_account_petty_cash_action" sequence="2" groups="account_petty_cash.petty_cash_manager"/>
+
+    </data>
+</odoo>

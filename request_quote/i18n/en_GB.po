@@ -1,0 +1,269 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* request_quote
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-12 11:23+0000\n"
+"PO-Revision-Date: 2018-06-12 11:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.contactus_thanks
+msgid "&amp;times;"
+msgstr "&amp;times;"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.crm_lead_quotation_form
+msgid "(update)"
+msgstr "(update)"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "<span class=\"btn btn-primary btn-lg o_website_form_send\">Send</span>\n"
+"                                    <span id=\"o_website_form_result\"/>"
+msgstr "<span class=\"btn btn-primary btn-lg o_website_form_send\">Send</span>\n"
+"                                    <span id=\"o_website_form_result\"/>"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.custom_crm_case_form_view_oppor
+msgid "Create Quotation"
+msgstr "Create Quotation"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_currency_id
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_currency_id
+msgid "Currency"
+msgstr "Currency"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_name
+msgid "Description"
+msgstr "Description"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_discount
+msgid "Discount (%)"
+msgstr "Discount (%)"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Email"
+msgstr "E-mail"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_fiscal_position_id
+msgid "Fiscal Position"
+msgstr "Fiscal Position"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.request_quote_button
+msgid "Get Quotation"
+msgstr "Get Quotation"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.contactus_thanks
+msgid "If you have an emergency, do not hesitate to contact us by phone:"
+msgstr "If you have an emergency, do not hesitate to contact us by phone:"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: request_quote
+#: model:ir.model,name:request_quote.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Lead/Opportunity"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_date_order
+msgid "Order Date"
+msgstr "Order Date"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_order_line
+#: model:ir.ui.view,arch_db:request_quote.crm_lead_quotation_form
+msgid "Order Lines"
+msgstr "Order Lines"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.contactus_thanks
+msgid "Our team will get back to you shortly."
+msgstr "Our team will get back to you shortly."
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_pricelist_id
+msgid "Pricelist"
+msgstr "Pricelist"
+
+#. module: request_quote
+#: model:ir.model.fields,help:request_quote.field_crm_lead_pricelist_id
+msgid "Pricelist for current sales order."
+msgstr "Pricelist for current sales order."
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_product_id
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_product_id
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Product"
+msgstr "Product"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_product_name
+msgid "Product Name"
+msgstr "Product Name"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_product_uom_qty
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_product_uom_qty
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Quantity"
+msgstr "Quantity"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Quotation"
+msgstr "Quotation"
+
+#. module: request_quote
+#: model:ir.model,name:request_quote.model_request_order_line
+msgid "Request Order Line"
+msgstr "Request Order Line"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_order_id
+msgid "Request Reference"
+msgstr "Request Reference"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.crm_lead_quotation_form
+msgid "Sales Order Lines"
+msgstr "Sales Order Lines"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_sequence
+msgid "Sequence"
+msgstr "Sequence"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Subject"
+msgstr "Subject"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_price_subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_amount_tax
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_price_tax
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_tax_id
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_note
+msgid "Terms and conditions"
+msgstr "Terms and conditions"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.contactus_thanks
+msgid "Thank You!"
+msgstr "Thank You!"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_amount_total
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_price_total
+msgid "Total"
+msgstr "Total"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_price_unit
+msgid "Unit Price"
+msgstr "Unit Price"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_request_order_line_product_uom
+msgid "Unit of Measure"
+msgstr "Unit of Measure"
+
+#. module: request_quote
+#: model:ir.model.fields,field_description:request_quote.field_crm_lead_amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Untaxed Amount"
+
+#. module: request_quote
+#: code:addons/request_quote/models/models.py:192
+#, python-format
+msgid "Warning for %s"
+msgstr "Warning for %s"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Your Company"
+msgstr "Your Company"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Your Name"
+msgstr "Your Name"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.quotation
+msgid "Your Question"
+msgstr "Your Question"
+
+#. module: request_quote
+#: model:ir.ui.view,arch_db:request_quote.contactus_thanks
+msgid "Your quote has been sent successfully."
+msgstr "Your quote has been sent successfully."
+

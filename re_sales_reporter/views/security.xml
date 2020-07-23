@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_re_sales_reporter_management">
+            <field name="name">RE Sales Report</field>
+        </record>
+        <record id="group_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_re_sales_reporter_management"/>
+        </record>
+
+        <record id="group_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="module_re_sales_reporter_management"/>
+            <field name="implied_ids" eval="[(4,ref('re_sales_reporter.group_user'))]"/>
+        </record>
+
+        <record id="group_super_admin" model="res.groups">
+            <field name="name">Super Admin</field>
+            <field name="category_id" ref="module_re_sales_reporter_management"/>
+            <field name="implied_ids" eval="[(4,ref('re_sales_reporter.group_admin'))]"/>
+        </record>
+    </data>
+</odoo>

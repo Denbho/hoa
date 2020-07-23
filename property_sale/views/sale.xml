@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+  <record id="view_order_product_search_inherit" model="ir.ui.view">
+      <field name="name">view.order.product.search</field>
+      <field name="model">sale.report</field>
+      <field name="inherit_id" ref="sale.view_order_product_search"/>
+      <field name="arch" type="xml">
+        <xpath expr="//filter[@name='Quotations']" position="before">
+          <filter string="Property Sale" name="property_sale" domain="[('property_sale', '=', True), ('price_total', '&gt;=', 0)]" />
+        </xpath>
+      </field>
+  </record>
+
+  <record id="sale.action_order_report_all" model="ir.actions.act_window">
+    <field name="context">{'search_default_Sales':1, 'search_default_property_sale':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+  </record>
+
+  <record id="sale_enterprise.sale_report_action_dashboard" model="ir.actions.act_window">
+      <field name="context" eval="{'search_default_Sales': 1, 'search_default_property_sale':1, 'time_ranges': {'field':'date_order', 'range':'last_30_days'}}"/>
+  </record>
+  <!-- Inherit Form view -->
+  <record id="sale_coupon_program_view_form_common" model="ir.ui.view">
+    <field name="name">sale.coupon.program.form</field>
+    <field name="model">sale.coupon.program</field>
+    <field name="inherit_id" ref="sale_coupon.sale_coupon_program_view_form_common"/>
+    <field name="arch" type="xml">
+      <label for="discount_type" position="before">
+        <field name="property_sale"/>
+        <field name="property_sale_coupon_apply_on" widget="radio" attrs="{'invisible': [('property_sale', '=', False)]}"/>
+      </label>
+    </field>
+  </record>
+
+  <!-- Inherit Form view -->
+  <record id="view_order_form" model="ir.ui.view">
+    <field name="name">sale.order.form</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <field name="payment_term_id" position="attributes">
+        <attribute name="attrs">{'invisible': [('property_sale', '=', True)]}</attribute>
+      </field>
+      <field name="order_line" position="before">
+        <group name="property_details">
+          <group>
+            <field name="property_sale"/>
+          </group>
+          <group/>
+        </group>
+        <group attrs="{'invisible': [('property_id', 'in', [False])]}">
+          <group>
+            <field name="property_id"/>
+            <field name="house_price"/>
+            <field name="lot_price"/>
+            <field name="miscellaneous_amount"/>
+          </group>
+          <group>
+            <field name="tcp"/>
+            <field name="ntcp"/>
+            <field name="tcp_vat" invisible="1"/>
+            <field name="property_vat"/>
+            <field name="tcp_discount"/>
+            <field name="ntcp_discount_amount"/>
+            <field name="net_of_ntcp_discount_amount" invisible="1"/>
+          </group>
+        </group>
+        <group attrs="{'invisible': [('property_id', 'in', [False])]}" string="Downpayment">
+          <group>
+            <label for="downpayment_percent"/>
+            <div attrs="{'invisible': [('property_sale', 'in', [False])]}">
+                <field name="downpayment_percent" class="oe_inline" attrs="{'readonly': ['|', ('dp_invoice_id', 'not in', [False]), ('dp_invoice2_id', 'not in', [False])]}"/><span class="oe_inline">%</span>
+            </div>
+            <label for="split_dp"/>
+            <div>
+              <field name="split_dp" class="oe_inline" attrs="{'readonly': ['|', ('dp_invoice_id', 'not in', [False]), ('dp_invoice2_id', 'not in', [False])]}"/>
+              <span class="oe_inline" attrs="{'invisible': [('split_dp', '=', False)], 'readonly': ['|', ('dp_invoice_id', 'not in', [False]), ('dp_invoice2_id', 'not in', [False])]}"><field name="split_percent" class="oe_inline"/>%</span>
+            </div>
+            <field name="downpayment_amount"/>
+            <field name="dp_discount_amount"/>
+            <field name="reservation_fee"/>
+            <label for="spot_amount"/>
+            <div>
+              <field name="spot_amount" class="oe_inline" attrs="{'readonly': ['|','|',('spot_dp_invoice_id', 'not in', [False]), ('dp_invoice_id', 'not in', [False]), ('dp_invoice2_id', 'not in', [False])]}"/>
+              <field name="spot_dp_invoice_id" class="oe_inline" attrs="{'invisible': [('spot_dp_invoice_id', 'in', [False])]}"/>
+              <button name="create_spot_dp_invoice" class="oe_link oe_inline"
+                attrs="{'invisible': ['|', '|', '|', ('spot_dp_invoice_id', 'not in', [False]), ('dp_invoice_id', 'not in', [False]), ('spot_amount', '=', 0), ('state', 'not in', ['sale', 'done'])]}"
+               string="Invoice Spot Cash" type="object"/>
+            </div>
+          </group>
+          <group>
+            <separator string="1st DP Terms" colspan="2" attrs="{'invisible': [('split_dp', '=', False)]}"/>
+            <field name="downpayment_term_id" attrs="{'required': [('property_id', 'not in', [False])], 'readonly': [('dp_invoice_id', 'not in', [False])]}" string="DP Term" options="{'no_quick_create': True, 'no_create_edit' : True}" domain="[('id', 'in', downpayment_term_ids)]"/>
+            <label for="dp_amount_due" string="Total DP Due"/>
+            <div>
+                <field name="dp_amount_due" class="oe_inline" attrs="{'readonly': [('dp_invoice_id', 'not in', [False])]}"/><span class="oe_inline">/month</span>
+                <field name="dp_invoice_id" class="oe_inline"/>
+                <button name="create_downpayment_invoice" class="oe_link oe_inline"
+                  attrs="{'invisible': ['|', '|', ('dp_invoice_id', 'not in', [False]), ('dp_amount_due', '=', 0), ('state', 'not in', ['sale', 'done'])]}"
+                 string="Invoice Downpayment" type="object"/>
+            </div>
+            <label for="dp_monthly_due"/>
+            <div>
+                <field name="dp_monthly_due" class="oe_inline"/><span class="oe_inline">/month</span>
+            </div>
+            <field name="dp_interest" invisible="1"/>
+
+            <separator string="2nd DP Terms" colspan="2" attrs="{'invisible': [('split_dp', '=', False)]}"/>
+            <field name="downpayment_term2_id" attrs="{'required': [('split_dp', '=', True)], 'readonly': [('dp_invoice2_id', 'not in', [False])],'invisible': [('split_dp', '=', False)]}" string="DP Term" options="{'no_quick_create': True, 'no_create_edit' : True}" domain="[('id', 'in', downpayment_term_ids)]"/>
+            <label for="dp_amount_due2" string="Total 2nd DP Due" attrs="{'invisible': [('split_dp', '=', False)]}"/>
+            <div attrs="{'invisible': [('split_dp', '=', False)]}">
+                <field name="dp_amount_due2" class="oe_inline" attrs="{'readonly': [('dp_invoice2_id', 'not in', [False])]}"/><span class="oe_inline">/month</span>
+                <field name="dp_invoice2_id" class="oe_inline"/>
+                <button name="create_downpayment_invoice" context="{'second_dp':1}" class="oe_link oe_inline"
+                  attrs="{'invisible': ['|', '|', ('dp_invoice2_id', 'not in', [False]), ('dp_amount_due2', '=', 0), ('state', 'not in', ['sale', 'done'])]}"
+                 string="Invoice Downpayment" type="object"/>
+            </div>
+            <label for="dp_monthly_due2" attrs="{'invisible': [('split_dp', '=', False)]}"/>
+            <div attrs="{'invisible': [('split_dp', '=', False)]}">
+                <field name="dp_monthly_due2" class="oe_inline"/><span class="oe_inline">/month</span>
+            </div>
+            <field name="dp_interest2" invisible="1"/>
+          </group>
+        </group>
+        <group attrs="{'invisible': [('property_id', 'in', [False])]}" string="Financing">
+          <group>
+            <field name="financing_type_id" attrs="{'required': [('property_id', 'not in', [False])], 'readonly': [('turnover_balance_invoice_id', 'not in', [False])]}" options="{'no_quick_create': True, 'no_create_edit' : True}" domain="[('id', 'in', financing_type_ids)]"/>
+            <field name="financing_type_term_id" attrs="{'required': [('property_id', 'not in', [False])], 'readonly': [('turnover_balance_invoice_id', 'not in', [False])]}" options="{'no_quick_create': True, 'no_create_edit' : True}" domain="[('financing_type_id', '=', financing_type_id)]"/>
+            <field name="downpayment_term_ids" widget="many2many_tags" invisible="1" />
+            <field name="financing_type_ids" widget="many2many_tags" invisible="1" />
+          </group>
+          <group>
+            <label for="turned_over_balance_amount"/>
+            <div>
+                <field name="turned_over_balance_amount" class="oe_inline" attrs="{'readonly': [('turnover_balance_invoice_id', 'not in', [False])]}"/><span class="oe_inline">/month</span>
+                <field name="turnover_balance_invoice_id" class="oe_inline" attrs="{'invisible': [('turnover_balance_invoice_id', 'in', [False])]}"/>
+                <button name="create_turnover_balance_invoice" class="oe_link oe_inline"
+                  attrs="{'invisible': ['|', '|',('turnover_balance_invoice_id', 'not in', [False]), ('dp_invoice_id', 'in', [False]), ('turned_over_balance_amount', '=', 0)]}"
+                 string="Invoice Turnover Balance" type="object"/>
+            </div>
+            <field name="turned_over_balance_amount" invisible="1"/>
+            <label for="turned_over_balance_mdue"/>
+            <div>
+                <field name="turned_over_balance_mdue" class="oe_inline"/><span class="oe_inline">/month</span>
+            </div>
+          </group>
+
+        </group>
+      </field>
+      <xpath expr="//page/field[@name='order_line']/tree/field[@name='name']" position="after">
+        <field name="unit_tcp_computation" invisible="1"/>
+        <field name="reward_coupon_id" invisible="1"/>
+      </xpath>
+      <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+        <attribute name="attrs">{'column_invisible': [('parent.property_sale', 'not in', [False])]}</attribute>
+      </xpath>
+      <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+        <attribute name="attrs">{'column_invisible': [('parent.property_sale', 'not in', [False])]}</attribute>
+      </xpath>
+    </field>
+  </record>
+
+</odoo>
