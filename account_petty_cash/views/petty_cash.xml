@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <record id="petty_cash_category_group" model="ir.module.category">
-            <field name="name">Petty Cash Custodian</field>
-            <field name="sequence" eval="1"/>
-        </record>
-
-        <record id="petty_cash_user" model="res.groups">
-            <field name="name">User</field>
-            <field name="category_id" ref="petty_cash_category_group"/>
-        </record>
-
-        <record id="petty_cash_manager" model="res.groups">
-            <field name="name">Manager</field>
-            <field name="category_id" ref="petty_cash_category_group"/>
-            <field name="implied_ids" eval="[(4, ref('petty_cash_user'))]"/>
-        </record>
-    </data>
     <data>
 
         <record id="account_payment_transaction_action" model="ir.actions.act_window">

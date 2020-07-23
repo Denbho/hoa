@@ -14,6 +14,7 @@
         'web_notify'
     ],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/petty_cash.xml',
         'views/expense.xml',
