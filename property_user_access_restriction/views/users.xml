@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_users_form" model="ir.ui.view">
+            <field name="name">view.users.form.inherit.branch</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[2]/group[1]" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <group name="Property Subdivisions">
+                        <field name="subdivision_ids" widget="many2many_tags"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -13,6 +13,7 @@ def roundup(val, round_val):
 class PropertyModelType(models.Model):
     _name = 'property.model.type'
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Description")
 
@@ -39,7 +40,9 @@ class PropertyPriceRange(models.Model):
 class HousingModel(models.Model):
     _name = 'housing.model'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _check_company_auto = True
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Model", required=True, track_visibility="always")
     floor_area = fields.Float(string="Floor Area", track_visibility="always")
     lot_area = fields.Float(string="Lot Area", track_visibility="always")
@@ -62,7 +65,7 @@ class HousingModel(models.Model):
     brand_id = fields.Many2one('product.brand', string='Brand')
     company_id = fields.Many2one('res.company', 'Company', required=True, index=True,
                                  default=lambda self: self.env.company)
-    currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id")
+    currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id", check_company=True)
 
     def unlink(self):
         for rec in self:
@@ -91,6 +94,7 @@ class PropertyFinancingTypeTerm(models.Model):
     _name = "property.financing.type.term"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    active = fields.Boolean(default=True)
     financing_type_id = fields.Many2one('property.financing.type', string="Financing Type")
     name = fields.Char(string="Display Name", store=True, compute="_get_name")
     year = fields.Integer(string="Years", help="Number of Years to Pay", track_visibility="always")
@@ -108,6 +112,7 @@ class PropertyFinancingType(models.Model):
     _name = "property.financing.type"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Financing Type", required=True, track_visibility="always")
     code = fields.Char(string="Code", required=True, track_visibility="always")
     description = fields.Text(string="Description", track_visibility="always")
@@ -135,6 +140,7 @@ class PropertyDownpaymentTerm(models.Model):
     _name = "property.downpayment.term"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Display Name", store=True, compute="_get_name")
     month = fields.Integer(string="Months", help="Number of Month to Pay", track_visibility="always")
     interest_rate = fields.Float(string="Interest Rate", track_visibility="always")
@@ -149,11 +155,13 @@ class PropertyDownpaymentTerm(models.Model):
 class PropertyDetail(models.Model):
     _name = "property.detail"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _check_company_auto = True
 
+    active = fields.Boolean(default=True)
     account_analytic_id = fields.Many2one('account.analytic.account', string="Analytic Account",
                                           help="This is link to Analytic Account", readonly=True)
     company_id = fields.Many2one('res.company', 'Company', required=True, index=True,
-                                 default=lambda self: self.env.company)
+                                 default=lambda self: self.env.company, check_company=True)
     currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id")
     image = fields.Binary(string="Model Image", track_visibility="always")
     name = fields.Char(string="Display Name", store=True,
