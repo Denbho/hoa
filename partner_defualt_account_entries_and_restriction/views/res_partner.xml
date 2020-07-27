@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='property_account_receivable_id']" position="before">
-                    <field name="customer_account_gltype_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="customer_account_gltype_id"/>
                 </xpath>
                 <xpath expr="//field[@name='property_account_receivable_id']" position="after">
                     <label for="customer_number"/>
@@ -18,7 +18,7 @@
                                 string="Generate ID" icon="fa-cog" class="oe_link"
                                 attrs="{'invisible': [('property_account_receivable_id', 'in', [False])]}"/>
                     </div>
-                    <field name="vendor_account_gltype_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="vendor_account_gltype_id"/>
                 </xpath>
                 <xpath expr="//field[@name='property_account_payable_id']" position="after">
                     <label for="vendor_number"/>
