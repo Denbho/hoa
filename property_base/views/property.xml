@@ -1,756 +1,885 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <menuitem id="property_menu_root"
-      name="Property"
-      web_icon="property_base,static/description/icon.png"
-      sequence="7"/>
+    <menuitem id="property_menu_root"
+              name="Property"
+              web_icon="property_base,static/description/icon.png"
+              sequence="7"/>
 
-  <menuitem id="menu_properties" name="Property" parent="property_menu_root" sequence="1" groups="property_base.group_property_user"/>
-  <menuitem id="menu_properties_settings" name="Settings" parent="property_menu_root" sequence="3" groups="property_base.group_property_admin"/>
+    <menuitem id="menu_properties" name="Property" parent="property_menu_root" sequence="1"
+              groups="property_base.group_property_user"/>
+    <menuitem id="menu_properties_settings" name="Settings" parent="property_menu_root" sequence="3"
+              groups="property_base.group_property_admin"/>
 
-  <record id="property_modeL_type_view_tree" model="ir.ui.view">
-    <field name="name">property.model.type.tree</field>
-    <field name="model">property.model.type</field>
-    <field name="arch" type="xml">
-      <tree string="Property Model Type">
-        <field name="name"/>
-        <field name="description"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_modeL_type_view_tree" model="ir.ui.view">
+        <field name="name">property.model.type.tree</field>
+        <field name="model">property.model.type</field>
+        <field name="arch" type="xml">
+            <tree string="Property Model Type">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_model_type_action_form" model="ir.actions.act_window">
-    <field name="name">Model/Unit Type</field>
-    <field name="res_model">property.model.type</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_model_type_action_form" model="ir.actions.act_window">
+        <field name="name">Model/Unit Type</field>
+        <field name="res_model">property.model.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_model_type" parent="menu_properties_settings" action="property_model_type_action_form" sequence="2"/>
+    <menuitem id="menu_property_model_type" parent="menu_properties_settings" action="property_model_type_action_form"
+              sequence="2"/>
 
-  <record id="property_sale_remark_view_tree" model="ir.ui.view">
-    <field name="name">property.sale.remark.tree</field>
-    <field name="model">property.sale.remark</field>
-    <field name="arch" type="xml">
-      <tree string="Sales Remark">
-        <field name="name"/>
-        <field name="description"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_sale_remark_view_tree" model="ir.ui.view">
+        <field name="name">property.sale.remark.tree</field>
+        <field name="model">property.sale.remark</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Remark">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_sale_remark_action_form" model="ir.actions.act_window">
-    <field name="name">Sales Remark</field>
-    <field name="res_model">property.sale.remark</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_sale_remark_action_form" model="ir.actions.act_window">
+        <field name="name">Sales Remark</field>
+        <field name="res_model">property.sale.remark</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_sale_remark" parent="menu_properties_settings" action="property_sale_remark_action_form" sequence="2"/>
+    <menuitem id="menu_property_sale_remark" parent="menu_properties_settings" action="property_sale_remark_action_form"
+              sequence="2"/>
 
-  <record id="property_price_range_view_tree" model="ir.ui.view">
-    <field name="name">property.price.range.tree</field>
-    <field name="model">property.price.range</field>
-    <field name="arch" type="xml">
-      <tree string="Price Range" editable="top">
-        <field name="name"/>
-        <field name="range_from"/>
-        <field name="range_to"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_price_range_view_tree" model="ir.ui.view">
+        <field name="name">property.price.range.tree</field>
+        <field name="model">property.price.range</field>
+        <field name="arch" type="xml">
+            <tree string="Price Range" editable="top">
+                <field name="name"/>
+                <field name="range_from"/>
+                <field name="range_to"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_price_range_action_form" model="ir.actions.act_window">
-    <field name="name">Price Range</field>
-    <field name="res_model">property.price.range</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_price_range_action_form" model="ir.actions.act_window">
+        <field name="name">Price Range</field>
+        <field name="res_model">property.price.range</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="property_price_range_menu"
-      action="property_price_range_action_form" parent="menu_properties_settings"
-      sequence="2"/>
+    <menuitem id="property_price_range_menu"
+              action="property_price_range_action_form" parent="menu_properties_settings"
+              sequence="2"/>
 
-  <record id="property_financing_type_view_form" model="ir.ui.view">
-    <field name="name">property.financing.type.form</field>
-    <field name="model">property.financing.type</field>
-    <field name="arch" type="xml">
-      <form string="Financing Type">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only"/>
-            <h1>
-              <field name="name"/>
-            </h1>
-            <div>
-              <label for="code" class="oe_inline"/>
-              <field name="code" class="oe_inline oe_input_align"/>
-            </div>
-          </div>
-          <group>
-            <group>
-              <!-- <field name="payment_term_id"/>
-            </group>
-            <group> -->
-              <field name="description"/>
-            </group>
-          </group>
-          <group string="Interest Rates">
-            <field name="financing_term_ids" colspan="2" nolabel="1">
-              <tree string="Payment Terms" editable="top">
-                <field name="name" invisible="1"/>
-                <field name="payment_term_id"/>
-                <field name="year"/>
-                <field name="interest_rate"/>
-              </tree>
-            </field>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <record id="property_financing_type_view_form" model="ir.ui.view">
+        <field name="name">property.financing.type.form</field>
+        <field name="model">property.financing.type</field>
+        <field name="arch" type="xml">
+            <form string="Financing Type">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div>
+                            <label for="code" class="oe_inline"/>
+                            <field name="code" class="oe_inline oe_input_align"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <!-- <field name="payment_term_id"/>
+                          </group>
+                          <group> -->
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <group string="Interest Rates">
+                        <field name="financing_term_ids" colspan="2" nolabel="1">
+                            <tree string="Payment Terms" editable="top">
+                                <field name="name" invisible="1"/>
+                                <field name="payment_term_id"/>
+                                <field name="year"/>
+                                <field name="interest_rate"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-  <record id="property_financing_type_view_tree" model="ir.ui.view">
-    <field name="name">property.financing.type.tree</field>
-    <field name="model">property.financing.type</field>
-    <field name="arch" type="xml">
-      <tree string="Financing Type">
-        <field name="name"/>
-        <field name="code"/>
-        <field name="description"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_financing_type_view_tree" model="ir.ui.view">
+        <field name="name">property.financing.type.tree</field>
+        <field name="model">property.financing.type</field>
+        <field name="arch" type="xml">
+            <tree string="Financing Type">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_financing_type_action_form" model="ir.actions.act_window">
-    <field name="name">Financing Type</field>
-    <field name="res_model">property.financing.type</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_financing_type_action_form" model="ir.actions.act_window">
+        <field name="name">Financing Type</field>
+        <field name="res_model">property.financing.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_financing_type" parent="menu_properties_settings" action="property_financing_type_action_form" sequence="4"/>
+    <menuitem id="menu_property_financing_type" parent="menu_properties_settings"
+              action="property_financing_type_action_form" sequence="4"/>
 
-  <record id="property_downpayment_term_view_form" model="ir.ui.view">
-    <field name="name">property.downpayment.term.form</field>
-    <field name="model">property.downpayment.term</field>
-    <field name="arch" type="xml">
-      <form string="Downpayment Term">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only"/>
-            <h1>
-              <field name="name"/>
-            </h1>
-            <div>
-              <label for="payment_term_id" class="oe_inline"/>
-              <field name="payment_term_id" class="oe_inline oe_input_align"/>
-            </div>
-          </div>
-          <group>
-            <group>
-              <field name="month"/>
-            </group>
-            <group>
-              <label for="interest_rate"/>
-              <div>
-                  <field name="interest_rate" class="oe_inline"/><span class="oe_inline">%</span>
-              </div>
-            </group>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <record id="property_downpayment_term_view_form" model="ir.ui.view">
+        <field name="name">property.downpayment.term.form</field>
+        <field name="model">property.downpayment.term</field>
+        <field name="arch" type="xml">
+            <form string="Downpayment Term">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div>
+                            <label for="payment_term_id" class="oe_inline"/>
+                            <field name="payment_term_id" class="oe_inline oe_input_align"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="month"/>
+                        </group>
+                        <group>
+                            <label for="interest_rate"/>
+                            <div>
+                                <field name="interest_rate" class="oe_inline"/><span class="oe_inline">%</span>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-  <record id="property_downpayment_term_action_form" model="ir.actions.act_window">
-    <field name="name">Downpayment Terms</field>
-    <field name="res_model">property.downpayment.term</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_downpayment_term_action_form" model="ir.actions.act_window">
+        <field name="name">Downpayment Terms</field>
+        <field name="res_model">property.downpayment.term</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_downpayment_term" parent="menu_properties_settings" action="property_downpayment_term_action_form" sequence="5"/>
-
-
-  <record id="account_analytic_group_business_entity_action" model="ir.actions.act_window">
-      <field name="name">Business Entity / Analytic Account Groups</field>
-      <field name="res_model">account.analytic.group</field>
-      <field name="view_mode">tree,form</field>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-            Click to add a new analytic account group.
-        </p>
-        <p>
-            This allows to classify your Project Phase.
-        </p>
-      </field>
-  </record>
-
-  <menuitem id="menu_account_analytic_group_business_entity" parent="menu_properties_settings" action="account_analytic_group_business_entity_action" sequence="6"/>
-
-  <record id="action_account_analytic_account_subdivision_phase_form" model="ir.actions.act_window">
-      <field name="name">Subdivision Phase's Analytic Accounts</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="res_model">account.analytic.account</field>
-      <field name="search_view_id" ref="analytic.view_account_analytic_account_search"/>
-      <field name="context">{'search_default_active':1}</field>
-      <field name="view_mode">tree,kanban,form</field>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Add a new Subdivision Phase's (Project) analytic account
-        </p>
-      </field>
-  </record>
-
-  <menuitem id="menu_action_account_analytic_account_subdivision_phase" parent="menu_properties_settings" action="action_account_analytic_account_subdivision_phase_form" sequence="7"/>
+    <menuitem id="menu_property_downpayment_term" parent="menu_properties_settings"
+              action="property_downpayment_term_action_form" sequence="5"/>
 
 
-  <record id="property_detail_view_form" model="ir.ui.view">
-    <field name="name">property.detail.form</field>
-    <field name="model">property.detail</field>
-    <field name="arch" type="xml">
-      <form string="Property">
-        <header>
-          <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
-        </header>
-        <sheet>
-          <div class="oe_button_box" name="button_box"/>
-          <field name="image" widget="image" class="oe_avatar"/>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only" string="Property"/>
-            <h1>
-              <field name="name"/>
-            </h1>
-          </div>
-          <group>
-            <group>
-              <field name="block_lot" string="Unit No. / Block-Lot"/>
-              <field name="subdivision_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-              <field name="property_subdivision_phase_ids" widget="many2many_tags" invisible="1"/>
-              <field name="subdivision_phase_id" domain="[('id', 'in', property_subdivision_phase_ids)]" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-              <field name="property_subdivision_phase_unit_ids" widget="many2many_tags" invisible="1"/>
-              <field name="house_model_id" domain="[('id', 'in', property_subdivision_phase_unit_ids)]" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-              <field name="sale_id" domain="[('company_id', '=', company_id)]" attrs="{'invisible': ['|', ('sale_id', '=', False), ('sale_status', 'in', ['No Buyer', False])]}" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-              <field name="sale_reference" attrs="{'invisible': ['|', ('sale_id', 'not in', [False]), ('sale_status', 'in', ['No Buyer', False])]}"/>
-              <field name="partner_id" attrs="{'invisible': ['|', ('sale_reference', '=', False), ('sale_status', 'in', ['No Buyer', False])]}" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-              <field name="company_id" groups="base.group_multi_company"/>
-              <field name="currency_id" invisible="1"/>
-            </group>
-            <group>
-              <label for="unit_state" string="Property Built Status"/>
-              <div>
-                <field name="unit_state" class="oe_inline"/>
-                <field name="completion_date" placeholder="Completion Date" help="Completion Date"
-                  attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}" class="oe_inline"/>
-              </div>
-              <label for="rfo" string="RFO" attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}"/>
-              <div attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}">
-                <field name="rfo" widget="boolean_toggle" class="oe_inline"/>
-                <field name="rfo_date" attrs="{'invisible': [('rfo', '=', False)], 'required': [('rfo', '=', True)]}" class="oe_inline"/>
-              </div>
-              <field name="sale_status"/>
-              <label for="turned_over" attrs="{'invisible': ['|', '|',('rfo', '=', False), ('sale_status', 'in', ['No Buyer', False]), ('turnover_qualified', '=', False)]}"/>
-              <div attrs="{'invisible': ['|', '|',('rfo', '=', False), ('sale_status', 'in', ['No Buyer', False]), ('turnover_qualified', '=', False)]}">
-                <field name="turned_over" widget="boolean_toggle" class="oe_inline"/>
-                <field name="turnover_date" attrs="{'invisible': [('turned_over', '=', False)], 'required': [('turned_over', '=', True)]}" class="oe_inline"/>
-                <field name="turnover_remark_id" attrs="{'invisible': [('turned_over', '=', False)]}"/>
-              </div>
-              <label for="moved_in" attrs="{'invisible': [('turned_over', '=', False)]}"/>
-              <div attrs="{'invisible': [('turned_over', '=', False)]}">
-                <field name="moved_in" widget="boolean_toggle" class="oe_inline"/>
-                <field name="movein_date" attrs="{'invisible': [('moved_in', '=', False)], 'required': [('moved_in', '=', True)]}" class="oe_inline"/>
-                <field name="movein_remark_id" attrs="{'invisible': [('moved_in', '=', False)]}"/>
-              </div>
-            </group>
-          </group>
-          <notebook>
-            <page name="house_model" string="Property Informations">
-              <group col="6">
-                <group colspan="2">
-                  <field name="model_type_id"/>
-                  <field name="property_type"/>
-                  <field name="reservation_fee"/>
-                  <label for="downpayment_percent"/>
-                  <div>
-                      <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">%</span>
-                  </div>
+    <record id="account_analytic_group_business_entity_action" model="ir.actions.act_window">
+        <field name="name">Business Entity / Analytic Account Groups</field>
+        <field name="res_model">account.analytic.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to add a new analytic account group.
+            </p>
+            <p>
+                This allows to classify your Project Phase.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_account_analytic_group_business_entity" parent="menu_properties_settings"
+              action="account_analytic_group_business_entity_action" sequence="6"/>
+
+    <record id="action_account_analytic_account_subdivision_phase_form" model="ir.actions.act_window">
+        <field name="name">Subdivision Phase's Analytic Accounts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.account</field>
+        <field name="search_view_id" ref="analytic.view_account_analytic_account_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new Subdivision Phase's (Project) analytic account
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_action_account_analytic_account_subdivision_phase" parent="menu_properties_settings"
+              action="action_account_analytic_account_subdivision_phase_form" sequence="7"/>
+
+    <record id="view_property_detail_filter" model="ir.ui.view">
+        <field name="name">property.detail.search</field>
+        <field name="model">property.detail</field>
+        <field name="arch" type="xml">
+            <search string="Property List">
+                <field name="name" string="Employee"
+                       filter_domain="['|','|','|','|', ('block_lot', 'ilike', self), ('subdivision_id', 'ilike', self), ('subdivision_phase_id', 'ilike', self), ('house_model_id', 'ilike', self), ('name', 'ilike', self)]"/>
+                <field name="sale_reference"
+                       filter_domain="['|', ('sale_reference', 'ilike', self), ('sale_id', 'ilike', self)]"/>
+                <field name="partner_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="subdivision_id" string="Subdivision" domain="[]" context="{'group_by': 'subdivision_id'}"/>
+                    <filter name="subdivision_phase_id" string="Phase" domain="[]" context="{'group_by': 'subdivision_phase_id'}"/>
+                    <filter name="house_model_id" string="House Model" domain="[]" context="{'group_by': 'house_model_id'}"/>
+                    <filter name="state" string="State" domain="[]" context="{'group_by': 'state'}"/>
                 </group>
-                <group colspan="2">
-                  <label for="lot_area" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
-                  <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
-                      <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
-                  </div>
-                  <label for="lot_area_price" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                      <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
-                  </div>
-                  <label for="floor_area"/>
-                  <div>
-                      <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
-                  </div>
-                  <label for="floor_area_price" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <div class="oe_inline" groups="property_base.group_property_admin,account.group_account_manager">
-                      <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
-                  </div>
-                  <label for="miscellaneous_charge" string="Miscellaneous Charge" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                      <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">%</span>
-                  </div>
-                  <field name="miscellaneous_value" class="oe_inline" groups="property_base.group_property_admin,account.group_account_manager"/>
-                </group>
-                <group colspan="2">
-                  <field name="house_price" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <field name="lot_price" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <field name="miscellaneous_amount" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <field name="ntcp" groups="property_base.group_property_admin,account.group_account_manager"/>
-                  <field name="tcp"/>
-                  <field name="price_range_id"/>
-                  <field name="sale_category"/>
-                </group>
-              </group>
-            </page>
-            <page name="sale" string="Sales" attrs="{'invisible': [('sale_status', 'in', ['No Buyer', False])]}">
-              <group>
-                <group>
-                  <field name="sale_remark_id"/>
-                  <field name="house_unit_status"/>
-                  <field name="reservation_date"/>
-                  <field name="contracted_date"/>
-                  <field name="downpayment_term_id"/>
-                  <field name="financing_type_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-                  <field name="financing_type_term_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-                  <field name="pdc" widget="toggle"/>
-                  <label for="fully_paid"/>
-                  <div>
-                    <field name="fully_paid" class="oe_inline" widget="boolean_toggle"/>
-                    <field name="fully_paid_date" class="oe_inline" attrs="{'invisible': [('fully_paid', '=', False)], 'required': [('fully_paid', '=', True)]}"/>
-                  </div>
-                </group>
-                <group>
-                  <field name="turnover_qualified" widget="boolean_toggle"/>
-                  <label for="atmi"/>
-                  <div>
-                    <field name="atmi" widget="boolean_toggle" class="oe_inline"/>
-                    <field name="atmi_date" class="oe_inline" attrs="{'invisible': [('atmi', '=', False)], 'required': [('atmi', '=', True)]}"/>
-                  </div>
-                  <field name="movein_kit"  widget="boolean_toggle"/>
-                  <field name="endorsement_date"/>
-                  <field name="ccd_accepted"/>
-                  <label for="customer_care_user_id" attrs="{'invisible': [('ccd_accepted', '=', False)], 'required': [('ccd_accepted', '=', True)]}"/>
-                  <div attrs="{'invisible': [('endorsement_date', '=', False)]}">
-                    <field name="customer_care_user_id" class="oe_inline"/>
-                    <field name="ccd_acceptance_date" attrs="{'invisible': [('endorsement_date', '=', False)], 'required': [('customer_care_user_id', 'not in', [False])]}" class="oe_inline"/>
-                  </div>
-                </group>
-              </group>
-            </page>
-            <page name="ownership" string="Ownership">
-              <group name="owner">
-                <group name="property_title">
-                  <field name="title_owner_partner_id"/>
-                  <field name="home_owner_membership_date"/>
-                </group>
-                <group>
-                  <field name="house_plate"/>
-                  <field name="water_meter"/>
-                  <field name="electricity_meter"/>
-                  <label for="internet"/>
-                  <div>
-                    <field name="internet" widget="boolean_toggle" class="oe_inline"/>
-                    <field name="internet_provider_contact_id" placeholder="ISP" help="Internet Service Provider"
-                           class="oe_inline" attrs="{'invisible': [('internet', '=', False)], 'required': [('internet', '=', True)]}"/>
-                  </div>
-                  <label for="cable"/>
-                  <div>
-                    <field name="cable" widget="boolean_toggle" class="oe_inline"/>
-                    <field name="cable_provider_partner_id" placeholder="CSP" help="Cable Service Provider"
-                           class="oe_inline" attrs="{'invisible': [('cable', '=', False)], 'required': [('cable', '=', True)]}"/>
-                  </div>
-                </group>
-              </group>
-              <group name="das" string="Deed of Absolute Sale">
-                <label for="das"/>
-                <div>
-                  <field name="das" widget="boolean_toggle" class="oe_inline"/>
-                  <field name="das_date" class="oe_inline" attrs="{'invisible': [('das','=',False)], 'required': [('das', '=', True)]}"/>
+                <searchpanel>
+                    <field name="company_id" groups="base.group_multi_company" icon="fa-building"/>
+                    <field name="subdivision_id" icon="fa-map-marker"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="property_detail_view_form" model="ir.ui.view">
+        <field name="name">property.detail.form</field>
+        <field name="model">property.detail</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Property"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="block_lot" string="Unit No. / Block-Lot"/>
+                            <field name="subdivision_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="property_subdivision_phase_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="subdivision_phase_id" domain="[('id', 'in', property_subdivision_phase_ids)]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}" required="1"/>
+                            <field name="property_subdivision_phase_unit_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="house_model_id" domain="[('id', 'in', property_subdivision_phase_unit_ids)]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="sale_id" domain="[('company_id', '=', company_id)]"
+                                   attrs="{'invisible': ['|', ('sale_id', '=', False), ('sale_status', 'in', ['No Buyer', False])]}"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="sale_reference"
+                                   attrs="{'invisible': ['|', ('sale_id', 'not in', [False]), ('sale_status', 'in', ['No Buyer', False])]}"/>
+                            <field name="partner_id"
+                                   attrs="{'invisible': ['|', ('sale_reference', '=', False), ('sale_status', 'in', ['No Buyer', False])]}"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <label for="unit_state" string="Property Built Status"/>
+                            <div>
+                                <field name="unit_state" class="oe_inline"/>
+                                <field name="completion_date" placeholder="Completion Date" help="Completion Date"
+                                       attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}"
+                                       class="oe_inline"/>
+                            </div>
+                            <label for="rfo" string="RFO"
+                                   attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}"/>
+                            <div attrs="{'invisible': [('unit_state', 'not in', ['completed'])]}">
+                                <field name="rfo" widget="boolean_toggle" class="oe_inline"/>
+                                <field name="rfo_date"
+                                       attrs="{'invisible': [('rfo', '=', False)], 'required': [('rfo', '=', True)]}"
+                                       class="oe_inline"/>
+                            </div>
+                            <field name="sale_status"/>
+                            <label for="turned_over"
+                                   attrs="{'invisible': ['|', '|',('rfo', '=', False), ('sale_status', 'in', ['No Buyer', False]), ('turnover_qualified', '=', False)]}"/>
+                            <div attrs="{'invisible': ['|', '|',('rfo', '=', False), ('sale_status', 'in', ['No Buyer', False]), ('turnover_qualified', '=', False)]}">
+                                <field name="turned_over" widget="boolean_toggle" class="oe_inline"/>
+                                <field name="turnover_date"
+                                       attrs="{'invisible': [('turned_over', '=', False)], 'required': [('turned_over', '=', True)]}"
+                                       class="oe_inline"/>
+                                <field name="turnover_remark_id" attrs="{'invisible': [('turned_over', '=', False)]}"/>
+                            </div>
+                            <label for="moved_in" attrs="{'invisible': [('turned_over', '=', False)]}"/>
+                            <div attrs="{'invisible': [('turned_over', '=', False)]}">
+                                <field name="moved_in" widget="boolean_toggle" class="oe_inline"/>
+                                <field name="movein_date"
+                                       attrs="{'invisible': [('moved_in', '=', False)], 'required': [('moved_in', '=', True)]}"
+                                       class="oe_inline"/>
+                                <field name="movein_remark_id" attrs="{'invisible': [('moved_in', '=', False)]}"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="house_model" string="Property Informations">
+                            <group col="6">
+                                <group colspan="2">
+                                    <field name="model_type_id"/>
+                                    <field name="property_type"/>
+                                    <field name="reservation_fee"/>
+                                    <label for="downpayment_percent"/>
+                                    <div>
+                                        <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">
+                                        %</span>
+                                    </div>
+                                </group>
+                                <group colspan="2">
+                                    <label for="lot_area"
+                                           attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
+                                    <div class="oe_inline"
+                                         attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
+                                        <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                                    </div>
+                                    <label for="lot_area_price"
+                                           attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <div class="oe_inline"
+                                         attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                         groups="property_base.group_property_admin,account.group_account_manager">
+                                        <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">
+                                        /m²</span>
+                                    </div>
+                                    <label for="floor_area"/>
+                                    <div>
+                                        <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                                    </div>
+                                    <label for="floor_area_price"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <div class="oe_inline"
+                                         groups="property_base.group_property_admin,account.group_account_manager">
+                                        <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">
+                                        /m²</span>
+                                    </div>
+                                    <label for="miscellaneous_charge" string="Miscellaneous Charge"
+                                           attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <div class="oe_inline"
+                                         attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                         groups="property_base.group_property_admin,account.group_account_manager">
+                                        <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">
+                                        %</span>
+                                    </div>
+                                    <field name="miscellaneous_value" class="oe_inline"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                </group>
+                                <group colspan="2">
+                                    <field name="house_price"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <field name="lot_price"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <field name="miscellaneous_amount"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <field name="ntcp"
+                                           groups="property_base.group_property_admin,account.group_account_manager"/>
+                                    <field name="tcp"/>
+                                    <field name="price_range_id"/>
+                                    <field name="sale_category"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="sale" string="Sales"
+                              attrs="{'invisible': [('sale_status', 'in', ['No Buyer', False])]}">
+                            <group>
+                                <group>
+                                    <field name="sale_remark_id"/>
+                                    <field name="house_unit_status"/>
+                                    <field name="reservation_date"/>
+                                    <field name="contracted_date"/>
+                                    <field name="downpayment_term_id"/>
+                                    <field name="financing_type_id"
+                                           options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="financing_type_term_id"
+                                           options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="pdc" widget="toggle"/>
+                                    <label for="fully_paid"/>
+                                    <div>
+                                        <field name="fully_paid" class="oe_inline" widget="boolean_toggle"/>
+                                        <field name="fully_paid_date" class="oe_inline"
+                                               attrs="{'invisible': [('fully_paid', '=', False)], 'required': [('fully_paid', '=', True)]}"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="turnover_qualified" widget="boolean_toggle"/>
+                                    <label for="atmi"/>
+                                    <div>
+                                        <field name="atmi" widget="boolean_toggle" class="oe_inline"/>
+                                        <field name="atmi_date" class="oe_inline"
+                                               attrs="{'invisible': [('atmi', '=', False)], 'required': [('atmi', '=', True)]}"/>
+                                    </div>
+                                    <field name="movein_kit" widget="boolean_toggle"/>
+                                    <field name="endorsement_date"/>
+                                    <field name="ccd_accepted"/>
+                                    <label for="customer_care_user_id"
+                                           attrs="{'invisible': [('ccd_accepted', '=', False)], 'required': [('ccd_accepted', '=', True)]}"/>
+                                    <div attrs="{'invisible': [('endorsement_date', '=', False)]}">
+                                        <field name="customer_care_user_id" class="oe_inline"/>
+                                        <field name="ccd_acceptance_date"
+                                               attrs="{'invisible': [('endorsement_date', '=', False)], 'required': [('customer_care_user_id', 'not in', [False])]}"
+                                               class="oe_inline"/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="ownership" string="Ownership">
+                            <group name="owner">
+                                <group name="property_title">
+                                    <field name="title_owner_partner_id"/>
+                                    <field name="home_owner_membership_date"/>
+                                </group>
+                                <group>
+                                    <field name="house_plate"/>
+                                    <field name="water_meter"/>
+                                    <field name="electricity_meter"/>
+                                    <label for="internet"/>
+                                    <div>
+                                        <field name="internet" widget="boolean_toggle" class="oe_inline"/>
+                                        <field name="internet_provider_contact_id" placeholder="ISP"
+                                               help="Internet Service Provider"
+                                               class="oe_inline"
+                                               attrs="{'invisible': [('internet', '=', False)], 'required': [('internet', '=', True)]}"/>
+                                    </div>
+                                    <label for="cable"/>
+                                    <div>
+                                        <field name="cable" widget="boolean_toggle" class="oe_inline"/>
+                                        <field name="cable_provider_partner_id" placeholder="CSP"
+                                               help="Cable Service Provider"
+                                               class="oe_inline"
+                                               attrs="{'invisible': [('cable', '=', False)], 'required': [('cable', '=', True)]}"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group name="das" string="Deed of Absolute Sale">
+                                <label for="das"/>
+                                <div>
+                                    <field name="das" widget="boolean_toggle" class="oe_inline"/>
+                                    <field name="das_date" class="oe_inline"
+                                           attrs="{'invisible': [('das','=',False)], 'required': [('das', '=', True)]}"/>
+                                </div>
+                                <field name="deed_absolute_sale_attachment" nolabel="1" colspan="2"
+                                       widget="pdf_viewer"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
-                <field name="deed_absolute_sale_attachment" nolabel="1" colspan="2" widget="pdf_viewer"/>
-              </group>
-            </page>
-          </notebook>
-        </sheet>
-        <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers"/>
-          <field name="activity_ids" widget="mail_activity"/>
-          <field name="message_ids" widget="mail_thread"/>
-        </div>
-      </form>
-    </field>
-  </record>
+            </form>
+        </field>
+    </record>
 
-  <record id="property_detail_view_tree" model="ir.ui.view">
-    <field name="name">property.detail.tree</field>
-    <field name="model">property.detail</field>
-    <field name="arch" type="xml">
-      <tree string="Property">
-        <field name="name"/>
-        <field name="lot_area"/>
-        <field name="floor_area"/>
-        <field name="state"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_detail_view_tree" model="ir.ui.view">
+        <field name="name">property.detail.tree</field>
+        <field name="model">property.detail</field>
+        <field name="arch" type="xml">
+            <tree string="Property">
+                <field name="name"/>
+                <field name="subdivision_id" optional="hide"/>
+                <field name="subdivision_phase_id" optional="hide"/>
+                <field name="house_model_id" optional="hide"/>
+                <field name="lot_area"/>
+                <field name="floor_area"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="rfo"/>
+                <field name="moved_in"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_detail_action_form" model="ir.actions.act_window">
-    <field name="name">Unit Details</field>
-    <field name="res_model">property.detail</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_detail_action_form" model="ir.actions.act_window">
+        <field name="name">Unit Details</field>
+        <field name="res_model">property.detail</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_subdivision_id': 1, 'search_default_subdivision_phase_id': 1, 'search_default_house_model_id': 1, 'search_default_state': 1}</field>
+    </record>
 
-  <menuitem id="menu_property_detail" parent="menu_properties" action="property_detail_action_form" sequence="1"/>
+    <menuitem id="menu_property_detail" parent="menu_properties" action="property_detail_action_form" sequence="1"/>
 
-  <record id="housing_model_view_form" model="ir.ui.view">
-    <field name="name">housing.model.form</field>
-    <field name="model">housing.model</field>
-    <field name="arch" type="xml">
-      <form string="House Model">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only" string="House Model"/>
-            <h1>
-              <field name="name"/>
-            </h1>
-            <div>
-              <label for="brand_id" class="oe_inline"/>
-              <field name="brand_id" class="oe_inline oe_input_align"/>
-            </div>
-          </div>
-          <group>
-            <group>
-              <field name="company_id" groups="base.group_multi_company"/>
-              <field name="currency_id" invisible="1"/>
-              <field name="property_type"/>
-              <field name="model_type_id"/>
-              <field name="year_month"/>
-            </group>
-            <group>
-              <label for="lot_area" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
-              <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
-                  <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="lot_area_price" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="floor_area"/>
-              <div>
-                  <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="floor_area_price" string="Floor Area Price" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div class="oe_inline" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
-              </div>
-              <label for="miscellaneous_charge" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">%</span>
-              </div>
-              <field name="miscellaneous_value" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <field name="reservation_fee" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <label for="downpayment_percent" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div>
-                  <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">%</span>
-              </div>
-            </group>
-          </group>
-          <notebook>
-            <page name="description" string="Description">
-              <field name="description" placeholder="Model Description" colspan="2"/>
-              <field name="model_blue_print" widget="pdf_viewer" colspan="2"/>
-            </page>
-            <page name="extra_image" string="Extra Images">
-              <field name="house_model_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" options="{'create_text':'Add a Media'}" nolabel="1"/>
-            </page>
-          </notebook>
-        </sheet>
-        <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers"/>
-          <field name="activity_ids" widget="mail_activity"/>
-          <field name="message_ids" widget="mail_thread"/>
-        </div>
-      </form>
-    </field>
-  </record>
+    <record id="housing_model_view_form" model="ir.ui.view">
+        <field name="name">housing.model.form</field>
+        <field name="model">housing.model</field>
+        <field name="arch" type="xml">
+            <form string="House Model">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="House Model"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div>
+                            <label for="brand_id" class="oe_inline"/>
+                            <field name="brand_id" class="oe_inline oe_input_align"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="property_type"/>
+                            <field name="model_type_id"/>
+                            <field name="year_month"/>
+                        </group>
+                        <group>
+                            <label for="lot_area" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
+                            <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
+                                <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="lot_area_price" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="floor_area"/>
+                            <div>
+                                <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="floor_area_price" string="Floor Area Price"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div class="oe_inline"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
+                            </div>
+                            <label for="miscellaneous_charge"
+                                   attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">%</span>
+                            </div>
+                            <field name="miscellaneous_value"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <field name="reservation_fee"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <label for="downpayment_percent"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div>
+                                <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">%</span>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <field name="description" placeholder="Model Description" colspan="2"/>
+                            <field name="model_blue_print" widget="pdf_viewer" colspan="2"/>
+                        </page>
+                        <page name="extra_image" string="Extra Images">
+                            <field name="house_model_image_ids" class="o_website_sale_image_list"
+                                   context="{'default_name': name}" mode="kanban"
+                                   options="{'create_text':'Add a Media'}" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
 
-  <record id="housing_model_view_tree" model="ir.ui.view">
-    <field name="name">housing.model.tree</field>
-    <field name="model">housing.model</field>
-    <field name="arch" type="xml">
-      <tree string="House Model">
-        <field name="name"/>
-        <field name="property_type"/>
-        <field name="model_type_id"/>
-        <field name="year_month"/>
-        <field name="brand_id"/>
-        <field name="description"/>
-      </tree>
-    </field>
-  </record>
+    <record id="housing_model_view_tree" model="ir.ui.view">
+        <field name="name">housing.model.tree</field>
+        <field name="model">housing.model</field>
+        <field name="arch" type="xml">
+            <tree string="House Model">
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="model_type_id"/>
+                <field name="year_month"/>
+                <field name="brand_id"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="housing_model_action_form" model="ir.actions.act_window">
-    <field name="name">Property/Housing Model</field>
-    <field name="res_model">housing.model</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="housing_model_action_form" model="ir.actions.act_window">
+        <field name="name">Property/Housing Model</field>
+        <field name="res_model">housing.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_housing_model" parent="menu_properties_settings" action="housing_model_action_form" sequence="1"/>
+    <menuitem id="menu_property_housing_model" parent="menu_properties_settings" action="housing_model_action_form"
+              sequence="1"/>
 
-  <record id="property_subdivision_view_form" model="ir.ui.view">
-    <field name="name">property.subdivision.form</field>
-    <field name="model">property.subdivision</field>
-    <field name="arch" type="xml">
-      <form string="Subdivision">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only" string="Subdivision"/>
-            <h1>
-              <field name="name"/>
-            </h1>
-            <div groups="base.group_multi_company">
-              <label for="company_id" class="oe_inline"/>
-              <field name="company_id" class="oe_inline oe_input_align"/>
-              <field name="company_code" invisible="1"/>
-              <field name="currency_id" invisible="1"/>
-            </div>
-            <div>
-              <label for="branch_id" class="oe_inline"/>
-              <field name="branch_id" class="oe_inline oe_input_align"/>
-              <field name="branch_code" invisible="1"/>
-            </div>
-          </div>
-          <group>
-            <group>
-              <label for="street" string="Location"/>
-              <div class="o_address_format">
-                <field name="street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
-                <field name="street2" placeholder="Subdivision" class="o_address_street"/>
-                <field name="barangay_id" placeholder="Barangay" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                <field name="city_id" placeholder="City" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                <field name="province_id" placeholder="Province" class="o_address_city" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
-                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                <field name="island_group_id" placeholder="Island Group" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" class="o_address_city"/>
-                <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                <field name="continent_region_id" placeholder="Continent Region" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                <field name="continent_id" placeholder="Continent" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-              </div>
-              <field name="cluster_id"/>
-              <field name="cluster2_id"/>
-            </group>
-            <group>
-              <field name="subdivision_code"/>
-              <field name="account_analytic_group_id"
-                context="{'default_name': name, 'default_company_id': company_id}"/>
-              <field name="project_desciption"/>
-              <field name="property_type"/>
-              <field name="marketing_head_id"/>
-            </group>
-          </group>
-          <notebook>
-            <page name="phase" string="Phases">
-              <field name="subdivision_phase_ids" nolabel="1" colspan="2" context="{'default_subdivision_id': active_id}">
-                <tree string="Phase">
-                  <field name="name"/>
-                  <field name="phase_type"/>
-                  <field name="description"/>
-                </tree>
-              </field>
-            </page>
-          </notebook>
-        </sheet>
-        <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers"/>
-          <field name="activity_ids" widget="mail_activity"/>
-          <field name="message_ids" widget="mail_thread"/>
-        </div>
-      </form>
-    </field>
-  </record>
+    <record id="property_subdivision_view_form" model="ir.ui.view">
+        <field name="name">property.subdivision.form</field>
+        <field name="model">property.subdivision</field>
+        <field name="arch" type="xml">
+            <form string="Subdivision">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Subdivision"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div groups="base.group_multi_company">
+                            <label for="company_id" class="oe_inline"/>
+                            <field name="company_id" class="oe_inline oe_input_align"/>
+                            <field name="company_code" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                        <div>
+                            <label for="branch_id" class="oe_inline"/>
+                            <field name="branch_id" class="oe_inline oe_input_align"/>
+                            <field name="branch_code" invisible="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="street" string="Location"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="No. Inc, Bldg Name, Street" class="o_address_street"/>
+                                <field name="street2" placeholder="Subdivision" class="o_address_street"/>
+                                <field name="barangay_id" placeholder="Barangay" class="o_address_city"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="city_id" placeholder="City" class="o_address_city"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="province_id" placeholder="Province" class="o_address_city"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"
+                                       options="{&quot;no_open&quot;: True}"
+                                       context="{'country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="island_group_id" placeholder="Island Group"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                       class="o_address_city"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="continent_region_id" placeholder="Continent Region"
+                                       class="o_address_country"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="continent_id" placeholder="Continent" class="o_address_country"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            </div>
+                            <field name="cluster_id"/>
+                            <field name="cluster2_id"/>
+                        </group>
+                        <group>
+                            <field name="subdivision_code"/>
+                            <field name="account_analytic_group_id"
+                                   context="{'default_name': name, 'default_company_id': company_id}"/>
+                            <field name="project_desciption"/>
+                            <field name="property_type"/>
+                            <field name="marketing_head_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="phase" string="Phases">
+                            <field name="subdivision_phase_ids" nolabel="1" colspan="2"
+                                   context="{'default_subdivision_id': active_id}">
+                                <tree string="Phase">
+                                    <field name="name"/>
+                                    <field name="phase_type"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
 
-  <record id="property_subdivision_view_tree" model="ir.ui.view">
-    <field name="name">property.subdivision.tree</field>
-    <field name="model">property.subdivision</field>
-    <field name="arch" type="xml">
-      <tree string="Subdivision">
-        <field name="name"/>
-        <field name="company_id"/>
-        <field name="branch_id"/>
-        <field name="property_type"/>
-        <field name="account_analytic_group_id"/>
-        <field name="marketing_head_id"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_subdivision_view_tree" model="ir.ui.view">
+        <field name="name">property.subdivision.tree</field>
+        <field name="model">property.subdivision</field>
+        <field name="arch" type="xml">
+            <tree string="Subdivision">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="branch_id"/>
+                <field name="property_type"/>
+                <field name="account_analytic_group_id"/>
+                <field name="marketing_head_id"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_subdivision_action_form" model="ir.actions.act_window">
-    <field name="name">Subdivisions</field>
-    <field name="res_model">property.subdivision</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_subdivision_action_form" model="ir.actions.act_window">
+        <field name="name">Subdivisions</field>
+        <field name="res_model">property.subdivision</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <menuitem id="menu_property_subdivision" parent="menu_properties" action="property_subdivision_action_form" sequence="3"/>
+    <menuitem id="menu_property_subdivision" parent="menu_properties" action="property_subdivision_action_form"
+              sequence="3"/>
 
-  <record id="property_subdivision_phase_view_tree" model="ir.ui.view">
-    <field name="name">property.subdivision.phase.tree</field>
-    <field name="model">property.subdivision.phase</field>
-    <field name="arch" type="xml">
-      <tree string="Subdivision Phase">
-        <field name="subdivision_id"/>
-        <field name="name"/>
-        <field name="phase_type"/>
-        <field name="description"/>
-      </tree>
-    </field>
-  </record>
+    <record id="property_subdivision_phase_view_tree" model="ir.ui.view">
+        <field name="name">property.subdivision.phase.tree</field>
+        <field name="model">property.subdivision.phase</field>
+        <field name="arch" type="xml">
+            <tree string="Subdivision Phase">
+                <field name="subdivision_id"/>
+                <field name="name"/>
+                <field name="phase_type"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_subdivision_phase_view_form" model="ir.ui.view">
-    <field name="name">property.subdivision.phase.form</field>
-    <field name="model">property.subdivision.phase</field>
-    <field name="arch" type="xml">
-      <form string="Subdivision Phase">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only" string="Subdivision Name"/>
-            <h1>
-              <field name="name" invisible="1"/>
-              <field name="account_analytic_group_id" invisible="1"/>
-              <field name="account_analytic_id"
-                context="{'default_group_id': account_analytic_group_id, 'default_company_id': company_id}"
-               domain="[('company_id', '=', company_id), ('group_id', '=', account_analytic_group_id)]"/>
-            </h1>
-            <div attrs="{'invisible': [('subdivision_id', 'in', [False])]}">
-              <label for="subdivision_id" class="oe_inline"/>
-              <field name="subdivision_id" class="oe_inline oe_input_align" readonly="1" force_save="1"/>
-              <field name="currency_id" invisible="1"/>
-            </div>
-            <div class="oe_edit_only" attrs="{'invisible': [('company_id', 'in', [False])]}" groups="base.group_multi_company">
-              <label for="company_id" class="oe_inline"/>
-              <field name="company_id" class="oe_inline oe_input_align"/>
-            </div>
-          </div>
-          <group>
-            <field name="phase_type"/>
-            <field name="description"/>
-          </group>
-          <group string="Property Models">
-            <field name="unit_model_ids" nolabel="1" colspan="2" context="{'default_subdivision_phase_id': active_id, 'default_subdivision_id': subdivision_id}">
-              <tree string="Phase Unit Model">
+    <record id="property_subdivision_phase_view_form" model="ir.ui.view">
+        <field name="name">property.subdivision.phase.form</field>
+        <field name="model">property.subdivision.phase</field>
+        <field name="arch" type="xml">
+            <form string="Subdivision Phase">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Subdivision Name"/>
+                        <h1>
+                            <field name="name" invisible="1"/>
+                            <field name="account_analytic_group_id" invisible="1"/>
+                            <field name="account_analytic_id"
+                                   context="{'default_group_id': account_analytic_group_id, 'default_company_id': company_id}"
+                                   domain="[('company_id', '=', company_id), ('group_id', '=', account_analytic_group_id)]"/>
+                        </h1>
+                        <div attrs="{'invisible': [('subdivision_id', 'in', [False])]}">
+                            <label for="subdivision_id" class="oe_inline"/>
+                            <field name="subdivision_id" class="oe_inline oe_input_align" readonly="1" force_save="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                        <div class="oe_edit_only" attrs="{'invisible': [('company_id', 'in', [False])]}"
+                             groups="base.group_multi_company">
+                            <label for="company_id" class="oe_inline"/>
+                            <field name="company_id" class="oe_inline oe_input_align"/>
+                        </div>
+                    </div>
+                    <group>
+                        <field name="phase_type"/>
+                        <field name="description"/>
+                    </group>
+                    <group string="Property Models">
+                        <field name="unit_model_ids" nolabel="1" colspan="2"
+                               context="{'default_subdivision_phase_id': active_id, 'default_subdivision_id': subdivision_id}">
+                            <tree string="Phase Unit Model">
+                                <field name="house_model_id"/>
+                                <field name="property_type"/>
+                                <field name="model_type_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="property_subdivision_phase_action_form" model="ir.actions.act_window">
+        <field name="name">Subdivision Phases</field>
+        <field name="res_model">property.subdivision.phase</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_property_subdivision_phase" parent="menu_properties"
+              action="property_subdivision_phase_action_form" sequence="4"/>
+
+    <record id="property_subdivision_phase_unit_model_view_tree" model="ir.ui.view">
+        <field name="name">property.subdivision.phase.unit.model.tree</field>
+        <field name="model">property.subdivision.phase.unit.model</field>
+        <field name="arch" type="xml">
+            <tree string="Phase Unit Model">
+                <field name="subdivision_id"/>
+                <field name="subdivision_phase_id"/>
                 <field name="house_model_id"/>
                 <field name="property_type"/>
                 <field name="model_type_id"/>
-              </tree>
-            </field>
-          </group>
-        </sheet>
-        <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers"/>
-          <field name="activity_ids" widget="mail_activity"/>
-          <field name="message_ids" widget="mail_thread"/>
-        </div>
-      </form>
-    </field>
-  </record>
+            </tree>
+        </field>
+    </record>
 
-  <record id="property_subdivision_phase_action_form" model="ir.actions.act_window">
-    <field name="name">Subdivision Phases</field>
-    <field name="res_model">property.subdivision.phase</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+    <record id="property_subdivision_phase_unit_model_view_form" model="ir.ui.view">
+        <field name="name">property.subdivision.phase.unit.model.form</field>
+        <field name="model">property.subdivision.phase.unit.model</field>
+        <field name="arch" type="xml">
+            <form string="Phase Unit Model">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Unit Model"/>
+                        <h1>
+                            <field name="house_model_id" options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   domain="[('property_type', '=', phase_type)]"/>
+                        </h1>
+                        <div class="oe_edit_only" attrs="{'invisible': [('subdivision_id', 'in', [False])]}">
+                            <label for="subdivision_id" class="oe_inline"/>
+                            <field name="subdivision_id" class="oe_inline oe_input_align"/>
+                        </div>
+                        <div class="oe_edit_only" attrs="{'invisible': [('subdivision_phase_id', 'in', [False])]}">
+                            <label for="subdivision_phase_id" class="oe_inline"/>
+                            <field name="subdivision_phase_id" class="oe_inline oe_input_align" readonly="1"
+                                   force_save="1"/>
+                        </div>
+                        <div class="oe_edit_only" attrs="{'invisible': [('company_id', 'in', [False])]}"
+                             groups="base.group_multi_company">
+                            <label for="company_id" class="oe_inline"/>
+                            <field name="company_id" class="oe_inline oe_input_align"/>
+                            <field name="currency_id" invisible="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="phase_type" invisible="1"/>
+                            <field name="property_type"/>
+                            <field name="model_type_id"/>
+                        </group>
+                        <group>
+                            <label for="lot_area" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
+                            <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
+                                <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="lot_area_price" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="floor_area"/>
+                            <div>
+                                <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
+                            </div>
+                            <label for="floor_area_price" string="Floor Area Price"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div class="oe_inline"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
+                            </div>
+                            <label for="miscellaneous_charge"
+                                   attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <div attrs="{'invisible': [('property_type', 'not in', ['House'])]}"
+                                 groups="property_base.group_property_admin,account.group_account_manager">
+                                <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">%</span>
+                            </div>
+                            <field name="miscellaneous_value"
+                                   groups="property_base.group_property_admin,account.group_account_manager"/>
+                            <field name="reservation_fee"/>
+                            <label for="downpayment_percent"/>
+                            <div>
+                                <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">%</span>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
-  <menuitem id="menu_property_subdivision_phase" parent="menu_properties" action="property_subdivision_phase_action_form" sequence="4"/>
+    <record id="property_subdivision_phase_unit_action_form" model="ir.actions.act_window">
+        <field name="name">Phase Unit Model Type</field>
+        <field name="res_model">property.subdivision.phase.unit.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-  <record id="property_subdivision_phase_unit_model_view_tree" model="ir.ui.view">
-    <field name="name">property.subdivision.phase.unit.model.tree</field>
-    <field name="model">property.subdivision.phase.unit.model</field>
-    <field name="arch" type="xml">
-      <tree string="Phase Unit Model">
-        <field name="subdivision_id"/>
-        <field name="subdivision_phase_id"/>
-        <field name="house_model_id"/>
-        <field name="property_type"/>
-        <field name="model_type_id"/>
-      </tree>
-    </field>
-  </record>
-
-  <record id="property_subdivision_phase_unit_model_view_form" model="ir.ui.view">
-    <field name="name">property.subdivision.phase.unit.model.form</field>
-    <field name="model">property.subdivision.phase.unit.model</field>
-    <field name="arch" type="xml">
-      <form string="Phase Unit Model">
-        <sheet>
-          <div class="oe_title">
-            <label for="name" class="oe_edit_only" string="Unit Model"/>
-            <h1>
-              <field name="house_model_id" options="{'no_quick_create': True, 'no_create_edit' : True}" domain="[('property_type', '=', phase_type)]"/>
-            </h1>
-            <div class="oe_edit_only" attrs="{'invisible': [('subdivision_id', 'in', [False])]}">
-              <label for="subdivision_id" class="oe_inline"/>
-              <field name="subdivision_id" class="oe_inline oe_input_align"/>
-            </div>
-            <div class="oe_edit_only" attrs="{'invisible': [('subdivision_phase_id', 'in', [False])]}">
-              <label for="subdivision_phase_id" class="oe_inline"/>
-              <field name="subdivision_phase_id" class="oe_inline oe_input_align" readonly="1" force_save="1"/>
-            </div>
-            <div class="oe_edit_only" attrs="{'invisible': [('company_id', 'in', [False])]}" groups="base.group_multi_company">
-              <label for="company_id" class="oe_inline"/>
-              <field name="company_id" class="oe_inline oe_input_align"/>
-              <field name="currency_id" invisible="1"/>
-            </div>
-          </div>
-          <group>
-            <group>
-              <field name="phase_type" invisible="1"/>
-              <field name="property_type"/>
-              <field name="model_type_id"/>
-            </group>
-            <group>
-              <label for="lot_area" attrs="{'invisible': [('property_type', 'not in', ['House'])]}"/>
-              <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}">
-                  <field name="lot_area" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="lot_area_price" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div class="oe_inline" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="lot_area_price" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="floor_area"/>
-              <div>
-                  <field name="floor_area" class="oe_inline"/><span class="oe_inline">m²</span>
-              </div>
-              <label for="floor_area_price" string="Floor Area Price" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div class="oe_inline" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="floor_area_price" class="oe_inline"/><span class="oe_inline">/m²</span>
-              </div>
-              <label for="miscellaneous_charge" attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <div attrs="{'invisible': [('property_type', 'not in', ['House'])]}" groups="property_base.group_property_admin,account.group_account_manager">
-                  <field name="miscellaneous_charge" class="oe_inline"/><span class="oe_inline">%</span>
-              </div>
-              <field name="miscellaneous_value" groups="property_base.group_property_admin,account.group_account_manager"/>
-              <field name="reservation_fee"/>
-              <label for="downpayment_percent"/>
-              <div>
-                  <field name="downpayment_percent" class="oe_inline"/><span class="oe_inline">%</span>
-              </div>
-            </group>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
-
-  <record id="property_subdivision_phase_unit_action_form" model="ir.actions.act_window">
-    <field name="name">Phase Unit Model Type</field>
-    <field name="res_model">property.subdivision.phase.unit.model</field>
-    <field name="view_mode">tree,form</field>
-  </record>
-
-  <menuitem id="menu_property_subdivision_phase_unit" parent="menu_properties"
-    groups="base.group_no_one" action="property_subdivision_phase_unit_action_form" sequence="6"/>
+    <menuitem id="menu_property_subdivision_phase_unit" parent="menu_properties"
+              groups="base.group_no_one" action="property_subdivision_phase_unit_action_form" sequence="6"/>
 
 </odoo>

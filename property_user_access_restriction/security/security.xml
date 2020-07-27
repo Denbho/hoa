@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="property_see_all" model="ir.rule">
+            <field name="name">All Subdivision Properties</field>
+            <field ref="property_base.model_property_detail" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_admin'))]"/>
+        </record>
+
+        <record id="property_restrict" model="ir.rule">
+            <field name="name">Restricted Subdivision Property Details</field>
+            <field ref="property_base.model_property_detail" name="model_id"/>
+            <field name="domain_force">[('subdivision_id', 'in', [i.id for i in user.subdivision_ids])]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_supervisor', 'property_base.group_property_user'))]"/>
+        </record>
+
+        <record id="property_phase_see_all" model="ir.rule">
+            <field name="name">All Subdivision Phase Properties</field>
+            <field ref="property_base.model_property_subdivision_phase" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_admin'))]"/>
+        </record>
+
+        <record id="property_phase_restrict" model="ir.rule">
+            <field name="name">Restricted Subdivision Phase Property Details</field>
+            <field ref="property_base.model_property_subdivision_phase" name="model_id"/>
+            <field name="domain_force">[('subdivision_id', 'in', [i.id for i in user.subdivision_ids])]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_supervisor', 'property_base.group_property_user'))]"/>
+        </record>
+
+        <record id="property_subdivision_see_all" model="ir.rule">
+            <field name="name">All Subdivision Properties</field>
+            <field ref="property_base.model_property_subdivision" name="model_id"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_admin'))]"/>
+        </record>
+
+        <record id="property_subdivision_restrict" model="ir.rule">
+            <field name="name">Restricted Subdivision Property Details</field>
+            <field ref="property_base.model_property_subdivision" name="model_id"/>
+            <field name="domain_force">[('id', 'in', [i.id for i in user.subdivision_ids])]</field>
+            <field name="groups" eval="[(4, ref('property_base.group_property_supervisor', 'property_base.group_property_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

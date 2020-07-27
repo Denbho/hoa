@@ -8,9 +8,9 @@ class PropertySubdivisionPhaseUnitModel(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = "house_model_id"
 
+    active = fields.Boolean(default=True)
     company_id = fields.Many2one('res.company', 'Company', related="subdivision_phase_id.subdivision_id.company_id", store=True)
     subdivision_id = fields.Many2one('property.subdivision', string="Subdivision")
-
     currency_id = fields.Many2one('res.currency', string="Currency", related="subdivision_phase_id.subdivision_id.company_id.currency_id")
     subdivision_phase_id = fields.Many2one('property.subdivision.phase', string="Phase", ondelete="cascade")
     house_model_id = fields.Many2one('housing.model', string="House Model", required=True, track_visibility="always", domain="[('company_id', '=', company_id)]")
@@ -50,6 +50,7 @@ class PropertySubdivisionPhase(models.Model):
     _name = "property.subdivision.phase"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Name", related="account_analytic_id.name", store=True, default="/")
     account_analytic_group_set_id = fields.Many2one('account.analytic.group', string="Analytic Group")
     account_analytic_id = fields.Many2one('account.analytic.account', string="Subdivision Phase (Project Name)", required="1", help="This is link to Analytic Account")
@@ -97,12 +98,14 @@ class PropertySubdivisionPhase(models.Model):
 class PropertySubdivision(models.Model):
     _name = "property.subdivision"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _check_company_auto = True
 
+    active = fields.Boolean(default=True)
     name = fields.Char(string="Name", help="Project / Subdivision", required=True)
     account_analytic_group_id = fields.Many2one('account.analytic.group', string="Business Entity/Analytic Group", required="1")
     project_desciption = fields.Text(string="BE Description", store=True, related="account_analytic_group_id.description")
     subdivision_code = fields.Char(string="Subdivision Code")
-    currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id")
+    currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id", check_company=True)
     company_id = fields.Many2one('res.company', 'Company', required=True, index=True, default=lambda self: self.env.company)
     company_code = fields.Char(string="Company Code", related="company_id.code", store=True)
     branch_id = fields.Many2one('res.branch', string="Branch", domain="[('company_id', '=', company_id)]")
