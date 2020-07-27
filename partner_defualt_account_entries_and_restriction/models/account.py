@@ -9,9 +9,10 @@ _logger = logging.getLogger("_name_")
 class ResPartnerAccountTypeGL(models.Model):
     _name = 'partner.account.gl.type'
     _description = 'Partner Default GL Account'
+    # check_company_auto = True
 
 
-    company_id = fields.Many2one('res.company', 'Company', required=True, index=True, default=lambda self: self.env.company)
+    # company_id = fields.Many2one('res.company', 'Company', required=True, index=True, default=lambda self: self.env.company, check_company=True)
     name = fields.Char(string="Title", required=True)
     sequence_id = fields.Many2one("ir.sequence", string="ID Sequence Paramater")
     ar_ap_type = fields.Selection([('Receivable', 'AR GL'), ('Payable', 'AP GL')], string="General Ledger Account Type",
@@ -76,6 +77,17 @@ class AccountMove(models.Model):
             if move.journal_id and move.journal_id:
                 move.journal_group_ids = move.journal_id.journal_group_ids.ids or []
 
+    @api.constrains('ref', 'type', 'company_id')
+    def _validate_unique_reference(self):
+        for move in self:
+            if move.ref:
+                rec = move.sudo().search([('id', 'not in', [move.id]), ('company_id', '=', move.company_id.id), ('type', '=', move.type), ('ref', '=', move.ref)])
+                if rec[:1]:
+                    raise ValidationError(_('The Reference of the Invoice document must be unique per company and type!'))
+    # _sql_constraints = [
+    #     ('reference_numbers_invoice_uniq', 'unique(ref, type, company_id)', 'The Reference of the Invoice document must be unique per company and type!')
+    # ]
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -121,11 +133,11 @@ class AccountMoveLine(models.Model):
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    vendor_account_gltype_id = fields.Many2one('partner.account.gl.type', string="Vendor AP GL",
+    vendor_account_gltype_id = fields.Many2one('partner.account.gl.type', string="AP Group",
                                                domain="[('ar_ap_type', '=', 'Payable')]",
                                                context="{'default_ar_ap_type': 'Payable'}")
     vendor_number = fields.Char(string="Vendor Number")
-    customer_account_gltype_id = fields.Many2one('partner.account.gl.type', string="Customer AR GL",
+    customer_account_gltype_id = fields.Many2one('partner.account.gl.type', string="AR Group",
                                                  domain="[('ar_ap_type', '=', 'Receivable')]",
                                                  context="{'default_ar_ap_type': 'Receivable'}")
     customer_number = fields.Char(string="Customer Number")
