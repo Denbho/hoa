@@ -56,6 +56,8 @@ class AccountPayment(models.Model):
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    document_date = fields.Date(string='Document Date', default=fields.Date.context_today, required=True, readonly=True,
+                               states={'draft': [('readonly', False)]}, copy=False, tracking=True)
     journal_group_ids = fields.Many2many('account.journal.group', 'move_journal_groups_rel', string="Journal Groups",
                                          compute='_get_journal_groups')
     journal_type = fields.Selection([
