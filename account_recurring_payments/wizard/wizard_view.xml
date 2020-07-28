@@ -45,7 +45,7 @@
             <field name="view_id" ref="account_recurring_payments_wizard_view"/>
             <field name="target">new</field>
         </record>
-        <menuitem id="account_recurring_payments_child2" name="Recurring Entries" action="action_account_recurring_payments_wizard_view" parent="account.menu_action_account_payments_receivable"/>
-        <menuitem id="account_recurring_payments_child3" name="Recurring Entries" action="action_account_recurring_payments_wizard_view" parent="account.menu_action_account_payments_payable"/>
+        <menuitem id="account_recurring_payments_child2" name="Recurring Entries" action="action_account_recurring_payments_wizard_view" parent="account.menu_finance_entries_management"/>
+<!--        <menuitem id="account_recurring_payments_child3" name="Recurring Entries" action="action_account_recurring_payments_wizard_view" parent="account.menu_action_account_payments_payable"/>-->
     </data>
 </odoo>

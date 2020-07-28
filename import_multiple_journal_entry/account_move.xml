@@ -35,7 +35,7 @@
 
         <menuitem action="action_import_account_move_line"
                   id="bi_gen_journal_wizard_import"
-                  parent="account.menu_finance_receivables" />
+                  parent="account.menu_finance_entries_accounting_journals" />
   </data>
 </odoo>
  
