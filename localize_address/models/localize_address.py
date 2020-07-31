@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from odoo.osv import expression
+import logging
 
+_logger = logging.getLogger("_name_")
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -13,6 +15,49 @@ class ResPartner(models.Model):
     province_id = fields.Many2one('res.country.province', string="Province")
     city_id = fields.Many2one('res.country.city', string="City Name")
     barangay_id = fields.Many2one('res.barangay', string="Barangay")
+
+    @api.model
+    def create(self, vals):
+        barangay = list()
+        if vals.get('barangay_id'):
+            barangay = self.env['res.barangay'].browse(vals.get('barangay_id'))
+        elif vals.get('zip'):
+            barangay = self.env['res.barangay'].search([('zip_code', '=', vals.get('zip'))], limit=2)
+        if barangay and barangay[:1]:
+            data = barangay[:1]
+            vals['zip'] = data.zip_code
+            vals['barangay_id'] = len(barangay) == 1 and data.id or False
+            vals['city'] = data.city_id.name
+            vals['city_id'] = data.city_id.id
+            vals['province_id'] = data.province_id.id
+            vals['state_id'] = data.state_id.id
+            vals['island_group_id'] = data.island_group_id.id
+            vals['country_id'] = data.country_id.id
+            vals['continent_region_id'] = data.continent_region_id.id
+            vals['continent_id'] = data.continent_id.id
+        # _logger.info(f"\n\n{vals}\n")
+        return super(ResPartner, self).create(vals)
+
+    def write(self, vals):
+        barangay = list()
+        if vals.get('barangay_id'):
+            barangay = self.env['res.barangay'].browse(vals.get('barangay_id'))
+        elif vals.get('zip'):
+            barangay = self.env['res.barangay'].search([('zip_code', '=', vals.get('zip'))], limit=2)
+        if barangay and barangay[:1]:
+            data = barangay
+            vals['zip'] = data.zip_code
+            vals['barangay_id'] = len(barangay) == 1 and data.id or False
+            vals['city'] = data.city_id.name
+            vals['city_id'] = data.city_id.id
+            vals['province_id'] = data.province_id.id
+            vals['state_id'] = data.state_id.id
+            vals['island_group_id'] = data.island_group_id.id
+            vals['country_id'] = data.country_id.id
+            vals['continent_region_id'] = data.continent_region_id.id
+            vals['continent_id'] = data.continent_id.id
+        return super(ResPartner, self).write(vals)
+
 
     @api.onchange('barangay_id')
     def onchange_barangay(self):

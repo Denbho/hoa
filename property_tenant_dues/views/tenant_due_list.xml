@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="res_partner_action_form" model="ir.actions.act_window">
+            <field name="name">Tenant</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+        <menuitem id="menu_root_tenant_due_report" name="Tenant Dues" sequence="1"/>
+
+        <record id="tenant_subscription_report_tree_view" model="ir.ui.view">
+            <field name="name">tenant.subscription.report.tree</field>
+            <field name="model">tenant.subscription.report</field>
+            <field name="arch" type="xml">
+                <tree string="Tenant Subsription Dues" create="false" delete="false" edit="false" expand="true">
+                    <field name="partner_id"/>
+                    <button name="action_open_tenant_profile" type="object" icon="fa-address-book" string="View Tenant's Profile"
+                        class="oe_link"/>
+                    <field name="subscription_id"/>
+                    <button name="action_open_tenant_subscription" type="object" icon="fa-info-circle" help="View Subscription Details"
+                        class="oe_link"/>
+                    <field name="property_id"/>
+                    <button name="action_open_property_detail" type="object" icon="fa-map-marker" help="View Property Details"
+                        class="oe_link"/>
+                    <field name="subdivision_id" optional="hide"/>
+                    <field name="subdivision_phase_id" optional="hide"/>
+                    <field name="house_model_id" optional="hide"/>
+                    <field name="move_id" optional="hide"/>
+                    <field name="move_line_id"/>
+                    <button name="action_open_invoice_detail" type="object" icon="fa-folder-open" help="View Invoice Details"
+                        class="oe_link"/>
+                    <field name="invoice_date" optional="hide"/>
+                    <field name="invoice_date_due" optional="show"/>
+                    <field name="price_subtotal" optional="hide"/>
+                    <field name="price_total" optional="show"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="currency_id" optional="hide"/>
+                    <field name="invoice_payment_state" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tenant-subscription_report_search_view" model="ir.ui.view">
+            <field name="name">tenant.subscription.report.search</field>
+            <field name="model">tenant.subscription.report</field>
+            <field name="arch" type="xml">
+                <search string="Tenant Subsription Dues">
+                    <field name="partner_id"/>
+                    <field name="subscription_id"/>
+                    <field name="property_id"/>
+                    <field name="subdivision_id"/>
+                    <field name="subdivision_phase_id"/>
+                    <field name="house_model_id"/>
+                    <field name="move_id"/>
+                    <field name="move_line_id"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_date_due"/>
+                    <field name="company_id"/>
+                    <field name="invoice_payment_state"/>
+                    <filter name="filter_invoice_date" date="invoice_date" string="Billing/Invoicing Date"/>
+                    <filter name="filter_invoice_date_due" date="invoice_date_due" string="Due Date"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Tenant/Customer" name="group_partner" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter string="Subscription" name="group_subscription_id" domain="[]"
+                                context="{'group_by':'subscription_id'}"/>
+                        <filter string="Company" name="group_company" domain="[]"
+                                context="{'group_by':'company_id'}"/>
+                        <filter string="Billing/Invoicing Date" name="group_invoice_date" domain="[]"
+                                context="{'group_by':'invoice_date'}"/>
+                        <filter string="Due Date" name="group_invoice_date_due" domain="[]"
+                                context="{'group_by':'invoice_date_due:week'}"/>
+                        <separator/>
+                        <filter string="Subdivision" name="group_subdivision_id" domain="[]"
+                                context="{'group_by':'subdivision_id'}"/>
+                        <filter string="Subdivision Phase" name="group_subdivision_phase_id" domain="[]"
+                                context="{'group_by':'subdivision_phase_id'}"/>
+                        <filter string="House Model" name="group_house_model_id" domain="[]"
+                                context="{'group_by':'house_model_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building"/>
+                        <field name="subdivision_id" icon="fa-map-marker"/>
+                        <field name="partner_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="main_tenant_due_report_action" model="ir.actions.act_window">
+            <field name="name">Tenant Dues</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tenant.subscription.report</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_filter_invoice_date_due': 1,
+                                   'search_default_group_subdivision_id': 1}</field>
+        </record>
+
+        <menuitem id="menu_main_tenant_due_report_action" parent="menu_root_tenant_due_report"
+                  action="main_tenant_due_report_action"/>
+
+
+    </data>
+</odoo>

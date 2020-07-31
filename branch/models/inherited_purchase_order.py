@@ -11,12 +11,15 @@ class purchase_order(models.Model):
     @api.model
     def default_get(self, default_fields):
         res = super(purchase_order, self).default_get(default_fields)
-        branch_id = False
         if self._context.get('branch_id'):
-            branch_id = self._context.get('branch_id')
-        elif self.env.user.branch_id:
-            branch_id = self.env.user.branch_id.id
-        res.update({'branch_id' : branch_id})
+            res['branch_id'] = self._context.get('branch_id')
+        elif self.env.user.branch_id and self.env.user.branch_id.company_id.id == self.env.company.id:
+            res['branch_id'] = self.env.user.branch_id.id
+        elif self.env.user.branch_ids.ids:
+            for i in self.env.user.branch_ids:
+                if self.env.company.id == i.company_id.id:
+                    res['branch_id'] = i.id
+                    break
         return res
 
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
@@ -44,24 +47,17 @@ class PurchaseOrder(models.Model):
     @api.model
     def default_get(self,fields):
         res = super(PurchaseOrder, self).default_get(fields)
-        branch_id = picking_type_id = False
-
-        if self.env.user.branch_id:
-            branch_id = self.env.user.branch_id.id
-
-        if branch_id:
-            branched_warehouse = self.env['stock.warehouse'].search([('branch_id','=',branch_id)])
+        if self.env.user.branch_id and self.env.user.branch_id.company_id.id == self.env.company.id:
+            res['branch_id'] = self.env.user.branch_id.id
+        elif self.env.user.branch_ids.ids:
+            for i in self.env.user.branch_ids:
+                if self.env.company.id == i.company_id.id:
+                    res['branch_id'] = i.id
+                    break
+        if res.get('branch_id'):
+            branched_warehouse = self.env['stock.warehouse'].search([('branch_id','=',res.get('branch_id'))])
             if branched_warehouse:
-                picking_type_id = branched_warehouse[0].in_type_id.id
-        else:
-            picking = self._default_picking_type()
-            picking_type_id = picking.id
-
-        res.update({
-            'branch_id' : branch_id,
-            'picking_type_id' : picking_type_id
-        })
-
+                res['picking_type_id'] = branched_warehouse[0].in_type_id.id
         return res
 
     branch_id = fields.Many2one('res.branch', string='Branch')

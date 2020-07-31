@@ -74,10 +74,12 @@ class StockMove(models.Model):
         branch_id = False
         if self.branch_id:
             branch_id = self.branch_id.id
-        elif self.env.user.branch_id:
+        elif self.env.user.branch_id and self.env.user.branch_id.company_id.id == self.env.company.id:
             branch_id = self.env.user.branch_id.id
-
+        for i in self.env.user.branch_ids:
+            if self.env.company.id == i.company_id.id:
+                branch_id = i.id
+                break
         for res in result:
             result[res].update({'branch_id' : branch_id})
-
         return result
