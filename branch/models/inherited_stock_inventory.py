@@ -15,9 +15,13 @@ class stock_inventory(models.Model):
             if location_branch:
                 res['branch_id'] = location_branch
         else:
-            user_branch = self.env['res.users'].browse(self.env.uid).branch_id
-            if user_branch:
-                res['branch_id'] = user_branch.id
+            if self.env.user.branch_id and self.env.user.branch_id.company_id.id == self.env.company.id:
+                res['branch_id'] = self.env.user.branch_id.id
+            elif self.env.user.branch_ids.ids:
+                for i in self.env.user.branch_ids:
+                    if self.env.company.id == i.company_id.id:
+                        res['branch_id'] = i.id
+                        break
         return res
 
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")

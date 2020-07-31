@@ -39,6 +39,7 @@ class AccountPettyCash(models.Model):
     currency_id = fields.Many2one('res.currency', string="Currency", related="company_id.currency_id")
     journal_id = fields.Many2one('account.journal', string="Journal", required=True, track_visibility="always", check_company=True)
     user_id = fields.Many2one('res.users', string="Custodian", required=True, track_visibility="always")
+    petty_cash_fund = fields.Monetary(string="Petty Cash Fund", help="Max Fund Amount",required=True, track_visibility="always")
 
     total_fund_transfer = fields.Monetary(string="Accumulative Funds", compute="_get_total_journal_transaction")
     total_transaction = fields.Monetary(string="Accumulative Transactions", compute="_get_total_journal_transaction")
@@ -47,6 +48,8 @@ class AccountPettyCash(models.Model):
     threshold_limit = fields.Boolean(compute="_get_total_journal_transaction")
     threshold_notify_user_ids = fields.Many2many('res.users', 'petty_users_notif_rel', string="Notify Users",
                                                  help="The selected users will get a notification when the balance is lower or equal to Thershold Balance.")
+
+    total_month_transaction = fields.Monetary()
 
     def _get_total_journal_transaction(self):
         for i in self:
