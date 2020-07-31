@@ -6,26 +6,20 @@ from odoo import api, fields, models, _
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-
     @api.model
     def default_get(self,fields):
         res = super(SaleOrder, self).default_get(fields)
-        branch_id = warehouse_id = False
-        if self.env.user.branch_id:
-            branch_id = self.env.user.branch_id.id
-        if branch_id:
-            branched_warehouse = self.env['stock.warehouse'].search([('branch_id','=',branch_id)])
+        if self.env.user.branch_id and self.env.user.branch_id.company_id.id == self.env.company.id:
+            res['branch_id'] = self.env.user.branch_id.id
+        elif self.env.user.branch_ids.ids:
+            for i in self.env.user.branch_ids:
+                if self.env.company.id == i.company_id.id:
+                    res['branch_id'] = i.id
+                    break
+        if res.get('branch_id'):
+            branched_warehouse = self.env['stock.warehouse'].search([('branch_id','=',res.get('branch_id'))])
             if branched_warehouse:
-                warehouse_id = branched_warehouse.ids[0]
-        else:
-            warehouse_id = self._default_warehouse_id()
-            warehouse_id = warehouse_id.id
-
-        res.update({
-            'branch_id' : branch_id,
-            'warehouse_id' : warehouse_id
-            })
-
+                res['warehouse_id'] = branched_warehouse.ids[0]
         return res
 
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")

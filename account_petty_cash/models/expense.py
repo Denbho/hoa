@@ -53,8 +53,8 @@ class HrExpenseSheet(models.Model):
                     f'Enteries. However, the Total Liquidation Expense he is trying to post is greater than the '
                     f'remaining Petty Cash Fund balance. You may consider replenishing it.', False, True)
             return True
-            # raise UserError(_(
-            #     "The Total Liquidation Expense you are trying to post is greater than the remaining Petty Cash Fund balance. Please replenish it first in order to proceed"))
+            raise UserError(_(
+                "The Total Liquidation Expense you are trying to post is greater than the remaining Petty Cash Fund balance. Please replenish it first in order to proceed"))
         return super(HrExpenseSheet, self).action_sheet_move_create()
 
     def action_sheet_move_create(self):

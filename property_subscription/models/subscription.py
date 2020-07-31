@@ -168,7 +168,7 @@ class SaleOrder(models.Model):
 
     def _action_confirm(self):
         for line in self.order_line:
-            if (line.hoa_subscription or line.require_proprty_tag) and line.hoa_property_id:
+            if line.hoa_subscription and line.hoa_property_id:
                 self.check_exist_running_subscription(line)
                 analytic = line.product_id.subscription_template_id.check_and_create_analytic(
                     line.product_id.subscription_template_id)
